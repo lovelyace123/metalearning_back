@@ -1,0 +1,23 @@
+.footer {
+    background-color: #f8f9fa; /* 푸터 배경색 */
+    color: #6c757d; /* 텍스트 기본 색상 */
+    border-top: 1px solid #dee2e6; /* 위쪽 경계선 */
+}
+
+.footer h5 {
+    font-size: 1.2rem; /* 제목 폰트 크기 */
+    font-weight: bold;
+}
+
+.footer a {
+    color: #6c757d; /* 링크 색상 */
+}
+
+.footer a:hover {
+    color: #003366; /* 링크 호버 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+.footer .bi {
+    font-size: 1.5rem; /* 아이콘 크기 */
+}

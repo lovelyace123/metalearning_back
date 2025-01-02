@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>국비 과정 수정</title>
+
+    <link rel="stylesheet" href="/css/style.css"> <!-- 스타일 경로 수정 가능 -->
+    <link rel="stylesheet" href="/static/css/admindashboard.css">
+    <link rel="stylesheet" href="/static/css/header/adminsidebar.css">
+    <link rel="stylesheet" href="/static/css/header/adminheader.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="fragments/adminheader :: adminheader"></div>
+
+<div class="content-container">
+    <!-- Sidebar -->
+    <div th:replace="fragments/adminsidebar :: adminsidebar"></div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>국비 과정 수정</h1>
+
+    <form th:action="@{/admin/KDT/course/update/{courseId}(courseId=${kdtcourse.KDTCourseId})}" method="POST">
+    <!-- CSRF Token -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <!-- 과정 ID 필드를 숨김 처리 -->
+    <input type="hidden" id="KDTCourseId" name="KDTCourseId" th:value="${kdtcourse.KDTCourseId}" />
+
+    <div>
+        <label for="KDTCourseTitle">과정명:</label>
+        <input type="text" id="KDTCourseTitle" name="KDTCourseTitle" th:value="${kdtcourse.KDTCourseTitle}" />
+    </div>
+
+    <div>
+        <label for="KDTCourseStatus">상태:</label>
+        <select id="KDTCourseStatus" name="KDTCourseStatus">
+            <option th:value="true" th:text="'활성'" th:selected="${kdtcourse.KDTCourseStatus == true}"></option>
+            <option th:value="false" th:text="'비활성'" th:selected="${kdtcourse.KDTCourseStatus == false}"></option>
+        </select>
+    </div>
+
+    <!-- 국비 과정 종류 선택 -->
+    <div class="form-group">
+        <label for="KDTCourseType">국비 과정 종류</label>
+        <select id="KDTCourseType" name="KDTCourseType" required class="form-select">
+            <option value="K-디지털 트레이닝" th:selected="${kdtcourse.KDTCourseType == 'K-디지털 트레이닝'}">K-디지털 트레이닝</option>
+            <option value="국가기간 전략산업 직종훈련" th:selected="${kdtcourse.KDTCourseType == '국가기간 전략산업 직종훈련'}">국가기간 전략산업 직종훈련</option>
+            <option value="산업구조 변화대응 특화훈련" th:selected="${kdtcourse.KDTCourseType == '산업구조 변화대응 특화훈련'}">산업구조 변화대응 특화훈련</option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit">수정 완료</button>
+    </div>
+</form>
+
+</body>
+</html>

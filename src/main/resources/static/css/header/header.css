@@ -1,0 +1,78 @@
+/* Header.module.css */
+.topBar {
+    background-color: #FFA500;
+    color: #ffffff;
+    padding: 0.5rem 0;
+    font-size: 1rem; /* 기본 폰트 크기 */
+}
+
+.logoText {
+    color: #003366;
+    font-size: 2.5rem; /* 크기 증가 */
+    font-weight: bold; /* 더 두껍게 */
+    margin-bottom: 0;
+    font-family: 'Poppins', sans-serif; /* 현대적이고 깔끔한 글꼴 */
+    letter-spacing: 2px; /* 글자 간격 추가 */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* 가벼운 그림자 효과 */
+}
+
+.nav-link {
+    color: #003366 !important;
+    font-size: 1.2rem; /* 글씨 크기 증가 */
+    text-decoration: none !important; /* 밑줄 제거 */
+    text-align: center; /* 가운데 정렬 */
+    font-weight: bold;
+}
+
+.nav-item {
+    margin: 0 15px; /* 네비게이션 아이템 간격 */
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 768px) {
+    .topBar {
+        font-size: 0.9rem; /* 작은 화면에서는 폰트 크기 감소 */
+        padding: 0.4rem 0; /* 패딩 축소 */
+    }
+
+    .logoText {
+        font-size: 1.8rem; /* 작은 화면에서 로고 텍스트 크기 감소 */
+        letter-spacing: 1px; /* 글자 간격 줄이기 */
+    }
+
+    .nav-link {
+        font-size: 1rem; /* 글씨 크기 축소 */
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .topBar {
+        font-size: 0.8rem; /* 더 작은 화면에서 폰트 크기 감소 */
+        padding: 0.3rem 0; /* 패딩 축소 */
+        text-align: center; /* 텍스트 중앙 정렬 */
+    }
+
+    .logoText {
+        font-size: 1.5rem; /* 더 작은 화면에서 로고 텍스트 크기 감소 */
+        letter-spacing: 0.5px; /* 글자 간격 줄이기 */
+    }
+
+    .nav-link {
+        font-size: 0.9rem; /* 글씨 크기 더 축소 */
+    }
+}
+
+/* 헤더 고정 스타일 */
+header {
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 헤더 하단 그림자 */
+    background-color: #ffffff; /* 헤더 배경 유지 */
+}
+
+/* 본문 간격 설정 */
+body {
+    padding-top: 200px; /* 헤더 높이와 동일하게 설정 */
+}

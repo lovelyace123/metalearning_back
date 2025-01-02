@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utility</title>
+  <script th:inline="javascript">
+    /* msg와 loc을 Thymeleaf로부터 동적으로 삽입 */
+    alert([[${msg}]]);  // msg 값을 alert로 띄웁니다.
+
+    // loc 값을 Thymeleaf로부터 동적으로 삽입
+    var location = [[${loc}]];
+
+    // loc 값이 절대경로가 아닌 경우, 기본 서버 URL을 붙여서 절대경로로 변환
+    if (!location.startsWith('http://') && !location.startsWith('https://')) {
+      location = 'http://localhost:8091' + location;  // 상대경로일 경우 절대경로로 변환
+    }
+
+    // 리디렉션
+    window.location.href = location;
+  </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,17 @@
+server:
+  port: 8080  # 서버 포트 설정 (기본적으로 8080 포트를 사용)
+
+devtools:
+  livereload:
+    enabled: true  # DevTools의 라이브 리로드 기능 활성화
+    # 애플리케이션 코드 변경 시 브라우저를 자동으로 새로 고침 (개발 환경에서 유용)
+
+spring:
+  profiles:
+    active: dev  # 활성화할 프로파일 설정 (개발 환경에서 'dev' 프로파일 사용)
+
+  resources:
+    static-locations:
+      - classpath:/static/  # 정적 리소스의 기본 경로를 설정
+      - classpath:/KDT/
+      - classpath:/course/

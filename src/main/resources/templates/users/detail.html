@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>MyPage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container p-5">
+    <div class="alert alert-primary">
+        <h3>환영합니다!! 로그인한 사용자만 볼 수 있는 페이지에요</h3>
+    </div>
+
+    <!-- 사용자 정보 출력 -->
+    사용자 이름: <h3 th:text="${#authentication.name}"></h3>
+
+    <!-- 사용자 ID 출력 (user_id) -->
+    사용자 ID: <h3 th:text="${#authentication.principal.userId}"></h3>
+
+    <!-- 사용자 권한 -->
+    사용자 권한: <h3 th:text="${#authentication.authorities}"></h3>
+
+    <!-- 전체 인증 정보(Principal) -->
+    전체 인증정보(Principal):
+    <h3 th:text="${#authentication.principal}"></h3>
+
+    <!-- 사용자 세부 정보 출력 -->
+    사용자 이메일: <h3 th:text="${#authentication.principal.userEmail}"></h3>
+    사용자 역할: <h3 th:text="${#authentication.principal.userRole}"></h3>
+    회원 가입일: <h3 th:text="${#authentication.principal.userCreatedAt}"></h3>
+    회원 수정일: <h3 th:text="${#authentication.principal.userUpdatedAt}"></h3>
+
+    <!-- 사용자 상태 -->
+    사용자 상태: <h3 th:text="${#authentication.principal.userStatus}"></h3>
+
+    <!-- 인증 여부 확인 -->
+    인증여부 확인: <h3 th:text="${#authentication.authenticated}"></h3>
+
+    <hr>
+    <!-- 돌아가기 링크 -->
+    [<a href="/">돌아가기</a>]
+    [<a th:href="@{/}">홈으로 돌아가기</a>]
+</div>
+</body>
+</html>

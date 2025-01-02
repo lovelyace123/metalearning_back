@@ -1,0 +1,89 @@
+.sidebar {
+    position: fixed;
+    height: 100%;
+    top: 80px;
+    left: 0;
+    width: 230px;
+    background-color: #343a40;
+    color: white;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarSection {
+    margin-bottom: 50px;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #adb5bd;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+.link:hover {
+    background-color: #495057;
+    color: white;
+}
+
+.hlink {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+.hlink:hover {
+    background-color: #495057;
+    color: white;
+}
+/* 부모 메뉴 (드롭다운) */
+.dropdown {
+  position: relative; /* 부모 요소를 기준으로 하위 메뉴 위치 지정 */
+  cursor: pointer;
+}
+
+.link i {
+  margin-right: 10px; /* 아이콘과 텍스트 간격 */
+  font-size: 1.2rem; /* 아이콘 크기 */
+}
+
+/* 하위 메뉴 */
+.subMenu {
+  display: none;
+  background-color: #495057; /* 하위 메뉴 배경색 */
+  padding: 10px 0; /* 내부 여백 */
+  flex-direction: column;
+  position: absolute; /* 부모 요소의 흐름을 따라 위치 */
+  top: 100%; /* 부모 요소 아래로 배치 */
+  left: 0; /* 부모와 같은 왼쪽 정렬 */
+  width: 100%; /* 부모와 동일한 너비로 확장 */
+  z-index: 100; /* 상위 레이어 */
+  overflow-y: auto; /* 스크롤 가능 */
+}
+
+.dropdown:hover .subMenu {
+    display: flex;
+}
+
+/* 드롭다운 활성화 시 아래 항목 밀어내기 */
+.dropdown:hover + .link {
+  margin-top: 250px; /* 드롭다운 높이만큼 밀어냄 */
+  transition: margin 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+/* 하위 메뉴 링크 */
+.subLink {
+  padding: 10px 20px; /* 하위 메뉴 여백 */
+  color: #adb5bd;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* 하위 메뉴 호버 효과 */
+.subLink:hover {
+  background-color: #007bff; /* 하위 메뉴 호버 배경색 */
+  color: white;
+}

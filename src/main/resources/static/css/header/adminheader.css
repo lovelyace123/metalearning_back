@@ -1,0 +1,59 @@
+.header {
+    display: flex; /* Flexbox로 설정 */
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #343a40; /* Dark background */
+    padding: 0 20px; /* Padding 추가 */
+}
+
+.leftSection {
+    display: flex;
+    align-items: center;
+}
+
+.brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 아이템 간 간격 추가 */
+}
+
+.userInfo {
+    color: white !important; /* 글씨를 흰색으로 강제 적용 */
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.userInfo span {
+    color: white !important;
+}
+
+
+.logoutForm {
+    margin: 0; /* 폼 여백 제거 */
+}
+
+.logoutButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+    background-color: #c82333;
+}

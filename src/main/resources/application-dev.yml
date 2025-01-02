@@ -1,0 +1,53 @@
+server:
+  port: 8091  # 서버가 실행될 포트 번호
+
+spring:
+  # MVC 설정: POST 요청을 PUT 또는 DELETE로 변환할 수 있도록 하는 필터 활성화
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true  # POST 요청을 PUT 또는 DELETE로 변환하는 필터 설정
+
+  # 데이터베이스 연결 설정
+  datasource:
+    url: jdbc:mysql://localhost:3306/metalearning # MySQL 데이터베이스 연결 URL
+    username: root  # 데이터베이스 사용자 이름
+    password: mysql904#  # 데이터베이스 사용자 비밀번호
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL JDBC 드라이버 클래스 이름
+
+  # JPA 설정
+  jpa:
+    hibernate:
+      ddl-auto: update  # 테이블 자동 생성/업데이트 설정 (개발 환경에서는 'update' 또는 'create', 배포 환경에서는 'none' 권장)
+      show-sql: false  # SQL 로그 출력 여부 설정 (true로 설정하면 SQL 로그 출력됨)
+
+  # 파일 업로드 설정
+  servlet:
+    multipart:
+      max-file-size: 100MB  # 업로드 가능한 파일의 최대 크기
+      max-request-size: 100MB  # 전체 요청의 최대 크기
+
+  # 이메일 설정
+  mail:
+    host: smtp.gmail.com  # SMTP 서버 호스트
+    port: 587  # SMTP 서버 포트
+    username: buuzzer2@gmail.com  # 이메일 계정
+    password: lqqcjaqzzekjaqjw  # 이메일 비밀번호 (권장: 환경변수로 관리)
+    properties:
+      mail:
+        smtp:
+          auth: true  # 인증 활성화
+          starttls:
+            enable: true  # STARTTLS 사용
+            required: true  # STARTTLS 필수
+          connectiontimeout: 5000  # 연결 타임아웃 (밀리초 단위)
+          timeout: 5000  # 응답 타임아웃 (밀리초 단위)
+          writetimeout: 5000  # 쓰기 타임아웃 (밀리초 단위)
+    auth-code-expiration-millis: 1800000  # 인증 코드 만료 시간 (30분 = 1800000 밀리초)
+
+  resources:
+    static-locations:
+      - classpath:/static/  # 정적 리소스의 기본 경로를 설정
+      - classpath:/KDT/
+      - classpath:/course/
+
