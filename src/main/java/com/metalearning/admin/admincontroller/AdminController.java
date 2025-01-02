@@ -3,6 +3,7 @@ package com.metalearning.admin.admincontroller;
 import com.metalearning.KDT.KDTdto.KDTCourseDTO;
 import com.metalearning.KDT.KDTdto.KDTSessionDTO;
 import com.metalearning.KDT.KDTservice.KdtService;
+import com.metalearning.user.userdto.UserSignUpDTO;
 import com.metalearning.user.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -134,6 +135,26 @@ public class AdminController {
         return "/users/detail";
     }
 
+
+    //회차별 매니저 등록하기
+    @GetMapping("/admin/KDT/{sessionId}/staff/manager")
+    public String showManagerRegistrationPage(@PathVariable Long sessionId, Model model) {
+
+        // 매니저 정보만 가져옴
+        List<UserSignUpDTO> usermanager = userService.usermanagerall();
+
+        // 세션 정보 가져오기
+        KDTSessionDTO sessions = kdtService.getSessionsBySessId(sessionId);
+
+        log.info("모든 사용자 정보 가져오는 거 ========================{}", usermanager);
+        log.info("세션 정보 가져오는 거 ========================{}", sessions);
+
+        // 모델에 사용자 정보와 세션 정보 추가
+        model.addAttribute("usermanager", usermanager);
+        model.addAttribute("sessions", sessions);
+
+        return "/admin/KDT/staffmanger"; // 매니저 등록 페이지의 뷰 이름
+    }
 
 
 

@@ -32,5 +32,9 @@ public interface KdtService {
     // 국비과정 아이디로 세션 전체 찾기임
     List<KDTSessionDTO> getSessionsByCourseId(Long courseId);
 
+    //세션 아이디로 세션전체 가져오기
+    KDTSessionDTO getSessionsBySessId(Long sessionId);
+
+
 
 }

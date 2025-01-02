@@ -85,5 +85,40 @@ public class UserServiceImpl implements UserService {
         return userall;
     }
 
+    @Override
+    public List<UserSignUpDTO> usermanagerall() {
+        // 'MANAGER' 역할을 가진 사용자만 조회
+        List<UserEntity> userEntities = userRepository.findByUserRole("MANAGER");
+
+        // UserEntity 리스트를 UserSignUpDTO 리스트로 변환
+        List<UserSignUpDTO> userall = userEntities.stream()
+                .map(user -> new UserSignUpDTO(
+                        user.getUserId(),
+                        user.getUserEmail(),
+                        user.getUserPw(),
+                        user.getUserRole(),
+                        user.getName(),
+                        user.getUserGender(),
+                        user.getUserBirth(),
+                        user.getUserPhone(),
+                        user.getUserPostcode(),
+                        user.getUserAddress(),
+                        user.getUserAddressDetail(),
+                        user.getUserEduLevel(),
+                        user.getUserMarketingAgree(),
+                        user.getUserPrivacyAgree(),
+                        user.getUserStatus(),
+                        user.getUserCreatedAt(),
+                        user.getUserUpdatedAt(),
+                        user.getUserSns(),
+                        user.getUserThumbnail(),
+                        user.getUserLastLogin()
+                ))
+                .collect(Collectors.toList());
+
+        return userall;
+    }
+
+
 
 }

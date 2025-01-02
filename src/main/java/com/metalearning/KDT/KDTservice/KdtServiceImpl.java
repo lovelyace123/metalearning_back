@@ -248,4 +248,46 @@ public boolean deleteCourse(Long courseId) {
         return sessionAll;
     }
 
+    //세션아이디로 단일객체 정보 가져오기
+    @Override
+    public KDTSessionDTO getSessionsBySessId(Long sessionId) {
+        // sessionId로 KDTSessionEntity를 조회하고 Optional로 감싸 반환
+        Optional<KDTSessionEntity> entityOpt = kdtSessionRepository.findById(sessionId);
+
+        // 엔티티가 없다면 null을 반환
+        if (!entityOpt.isPresent()) {
+            return null;
+        }
+
+        KDTSessionEntity entity = entityOpt.get(); // 엔티티 객체 가져오기
+
+        // KDTSessionDTO 객체 생성
+        KDTSessionDTO dto = new KDTSessionDTO();
+
+        // 엔티티 데이터를 DTO로 매핑
+        dto.setKdtSessionId(entity.getKdtSessionId());
+        dto.setKdtCourseId(entity.getKdtCourseEntity().getKdtCourseId());
+        dto.setKdtSessionNum(entity.getKdtSessionNum());
+        dto.setKdtSessionTitle(entity.getKdtSessionTitle());
+        dto.setKdtSessionDescript(entity.getKdtSessionDescript());
+        dto.setKdtSessionStartDate(entity.getKdtSessionStartDate());
+        dto.setKdtSessionEndDate(entity.getKdtSessionEndDate());
+        dto.setKdtSessionCategory(entity.getKdtSessionCategory());
+        dto.setKdtSessionMaxCapacity(entity.getKdtSessionMaxCapacity());
+        dto.setKdtSessionThumbnail(entity.getKdtSessionThumbnail());
+        dto.setKdtSessionStartTime(entity.getKdtSessionStartTime());
+        dto.setKdtSessionEndTime(entity.getKdtSessionEndTime());
+        dto.setKdtSessionPostcode(entity.getKdtSessionPostcode());
+        dto.setKdtSessionAddress(entity.getKdtSessionAddress());
+        dto.setKdtSessionAddressDetail(entity.getKdtSessionAddressDetail());
+        dto.setKdtSessionOnline(entity.getKdtSessionOnline());
+        dto.setKdtSessionTotalDay(entity.getKdtSessionTotalDay());
+        dto.setKdtSessionOnedayTime(entity.getKdtSessionOnedayTime());
+        dto.setKdtSessionTotalTime(entity.getKdtSessionTotalTime());
+
+        return dto;
+    }
+
+
+
 }

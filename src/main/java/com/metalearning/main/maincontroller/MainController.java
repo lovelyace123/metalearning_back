@@ -13,9 +13,6 @@ public class MainController {
 
     @GetMapping("/main/KDT-curriculum")
     public String KDTcurriculum(){
-
-
-
         return "/main/KDT-curriculum";
     }
 

@@ -40,7 +40,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                //react cors 설정
+//                react cors 설정
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
                 // CSRF 설정
@@ -105,7 +105,7 @@ public class WebSecurityConfig {
                 .build();  // AuthenticationManager 반환
     }
 
-    //react 병합전 cors 문제 해결 코드
+//    react 병합전 cors 문제 해결 코드
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -118,6 +118,6 @@ public class WebSecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-    
+
 
 }

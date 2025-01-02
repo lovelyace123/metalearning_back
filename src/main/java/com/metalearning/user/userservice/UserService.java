@@ -13,7 +13,7 @@ public interface UserService {
 
     List<UserSignUpDTO> userall();
 
-
+    List<UserSignUpDTO> usermanagerall();
 }
 
 

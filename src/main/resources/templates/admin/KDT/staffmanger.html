@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매니저 등록</title>
+    <style>
+        /* 필요에 따라 추가적인 스타일을 적용할 수 있습니다 */
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            font-weight: bold;
+            background-color: #f8f9fa;
+            padding: 10px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>회차별 매니저 등록</h1>
+
+    <!-- 세션 정보 출력 -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>세션 정보 리액트 </h3>
+        </div>
+        <div class="card-body">
+            <p><strong>세션 제목:</strong> <span th:text="${sessions.kdtSessionTitle}"></span></p>
+            <p><strong>세션 설명:</strong> <span th:text="${sessions.kdtSessionDescript}"></span></p>
+        </div>
+    </div>
+
+    <!-- 매니저 등록 양식 -->
+    <h2>매니저 등록 수정되냐고?!</h2>
+    <form action="#" method="post">
+        <div class="mb-3">
+            <label for="manager" class="form-label">매니저 선택</label>
+            <select id="manager" name="managerId" class="form-select">
+                <option th:each="user : ${usermanager}"
+                        th:value="${user.userId}"
+                        th:text="${user.name}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn">매니저 등록</button>
+    </form>
+
+    <hr>
+
+    <!-- 매니저 목록 출력 -->
+    <h3>현재 매니저 목록</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>이름</th>
+            <th>권한</th>
+            <th>성별</th>
+            <th>전화번호</th>
+            <th>상태</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${usermanager}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.userRole}"></td>
+            <td th:text="${user.userGender}"></td>
+            <td th:text="${user.userPhone}"></td>
+            <td th:text="${user.userStatus}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
