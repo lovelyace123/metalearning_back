@@ -66,4 +66,13 @@ public class KDTSessionEntity {
 
     @Column(name = "KDT_session_online")
     private Boolean kdtSessionOnline;       // 온라인 여부
+
+    @Column(name = "KDT_session_total_day")
+    private int kdtSessionTotalDay;       // 국비 총 교육일
+
+    @Column(name = "KDT_session_oneday_time")
+    private int kdtSessionOnedayTime;       // 국비 교육 시간
+
+    @Column(name = "KDT_session_total_time")
+    private int kdtSessionTotalTime;       // 국비 총 교육 시간
 }

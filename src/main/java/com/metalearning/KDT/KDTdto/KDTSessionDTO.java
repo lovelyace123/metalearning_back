@@ -3,7 +3,7 @@ package com.metalearning.KDT.KDTdto;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -23,8 +23,8 @@ public class KDTSessionDTO {
     private String kdtSessionCategory;
     private int kdtSessionMaxCapacity;
     private String kdtSessionThumbnail;
-    private LocalDateTime kdtSessionStartTime;
-    private LocalDateTime kdtSessionEndTime;
+    private LocalTime kdtSessionStartTime;
+    private LocalTime kdtSessionEndTime;
     private String kdtSessionPostcode;
     private String kdtSessionAddress;
     private String kdtSessionAddressDetail;
