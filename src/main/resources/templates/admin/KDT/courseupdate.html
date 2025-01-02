@@ -23,44 +23,64 @@
     <div th:replace="fragments/adminsidebar :: adminsidebar"></div>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <h1>국비 과정 수정</h1>
 
-        <form th:action="@{/admin/KDT/course/update/{courseId}(courseId=${kdtcourse.kdtCourseId})}" method="POST">
+    <div class="main-content container mt-4" style="max-width: 600px;">
+        <h1 class="text-center mb-4">
+            <i class="bi bi-pencil-square"></i> 국비 과정 수정
+        </h1>
+
+        <form th:action="@{/admin/KDT/course/update/{courseId}(courseId=${kdtcourse.kdtCourseId})}" method="POST" class="needs-validation" novalidate>
+
             <!-- CSRF Token -->
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <!-- 과정 ID 필드를 숨김 처리 -->
             <input type="hidden" id="kdtCourseId" name="kdtCourseId" th:value="${kdtcourse.kdtCourseId}" />
 
-            <div>
-                <label for="kdtCourseTitle">과정명:</label>
-                <input type="text" id="kdtCourseTitle" name="kdtCourseTitle" th:value="${kdtcourse.kdtCourseTitle}" />
+
+            <div class="mb-3">
+                <label for="kdtCourseTitle" class="form-label">
+                    <i class="bi bi-bookmark"></i> 과정명:
+                </label>
+                <input type="text" id="kdtCourseTitle" name="kdtCourseTitle" class="form-control" th:value="${kdtcourse.kdtCourseTitle}" required />
+                <div class="invalid-feedback">과정명을 입력해주세요.</div>
             </div>
 
-            <div>
-                <label for="kdtCourseStatus">상태:</label>
-                <select id="kdtCourseStatus" name="kdtCourseStatus">
+            <div class="mb-3">
+                <label for="kdtCourseStatus" class="form-label">
+                    <i class="bi bi-toggle-on"></i> 상태:
+                </label>
+                <select id="kdtCourseStatus" name="kdtCourseStatus" class="form-select" required>
+
                     <option th:value="true" th:text="'활성'" th:selected="${kdtcourse.kdtCourseStatus == true}"></option>
                     <option th:value="false" th:text="'비활성'" th:selected="${kdtcourse.kdtCourseStatus == false}"></option>
                 </select>
+                <div class="invalid-feedback">상태를 선택해주세요.</div>
             </div>
 
-            <!-- 국비 과정 종류 선택 -->
-            <div class="form-group">
-                <label for="kdtCourseType">국비 과정 종류</label>
-                <select id="kdtCourseType" name="kdtCourseType" required class="form-select">
+
+            <div class="mb-3">
+                <label for="kdtCourseType" class="form-label">
+                    <i class="bi bi-diagram-3"></i> 국비 과정 종류:
+                </label>
+                <select id="kdtCourseType" name="kdtCourseType" class="form-select" required>
                     <option value="K-디지털 트레이닝" th:selected="${kdtcourse.kdtCourseType == 'K-디지털 트레이닝'}">K-디지털 트레이닝</option>
                     <option value="국가기간 전략산업 직종훈련" th:selected="${kdtcourse.kdtCourseType == '국가기간 전략산업 직종훈련'}">국가기간 전략산업 직종훈련</option>
                     <option value="산업구조 변화대응 특화훈련" th:selected="${kdtcourse.kdtCourseType == '산업구조 변화대응 특화훈련'}">산업구조 변화대응 특화훈련</option>
                 </select>
+                <div class="invalid-feedback">국비 과정 종류를 선택해주세요.</div>
             </div>
 
-            <div>
-                <button type="submit">수정 완료</button>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> 수정 완료
+                </button>
+
             </div>
         </form>
 
     </div>
+
 </div>
 
 </body>
