@@ -24,6 +24,7 @@
     <th scope="col">종류</th>
     <th scope="col">생성일</th>
     <th scope="col">수정일</th>
+    <th scope="col">상세보기</th>
     <th scope="col">수정하기</th>
     <th scope="col">삭제하기</th>
   </tr>
@@ -93,6 +94,7 @@
         <td>${course.kdtCourseType || '정보 없음'}</td>
         <td>${formatDate(course.kdtCourseCreatedAt)}</td>
         <td>${formatDate(course.kdtCourseUpdatedAt)}</td>
+         <td><a href="/admin/KDT/TEST/course/${course.kdtCourseId}" class="btn btn-warning">상세보기</a></td>
         <td><a href="/admin/KDT/course/update/${course.kdtCourseId}" class="btn btn-warning">수정하기</a></td>
         <td><button class="btn btn-danger" onclick="deleteCourse(${course.kdtCourseId})">삭제하기</button></td>
       `;

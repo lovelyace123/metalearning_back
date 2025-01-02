@@ -29,6 +29,8 @@ public class KDTSessionDTO {
     private String kdtSessionAddress;
     private String kdtSessionAddressDetail;
     private Boolean kdtSessionOnline;
-
+    private int kdtSessionTotalDay;       // 국비 총 교육일
+    private int kdtSessionOnedayTime;       // 국비 교육 시간
+    private int kdtSessionTotalTime;       // 국비 총 교육 시간
 
 }

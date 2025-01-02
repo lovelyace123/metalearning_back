@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>세션 관리</title>
+</head>
+<body>
+<div class="container mt-4">
+  <h2>세션 목록</h2>
+
+  <!-- 세션 데이터가 비어있을 경우 메시지 출력 -->
+  <div th:if="${#lists.isEmpty(sessions)}">
+    <p>등록된 세션이 없습니다.</p>
+  </div>
+
+  <!-- 세션 리스트가 있을 경우 테이블 출력 -->
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>세션 ID</th>
+      <th>코스 ID</th>
+      <th>회차 번호</th>
+      <th>회차 제목</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 세션 리스트 반복문 -->
+    <tr th:each="session : ${sessions}">
+      <td th:text="${session.kdtSessionId}"></td>
+      <td th:text="${session.kdtCourseId}"></td>
+      <td th:text="${session.kdtSessionNum}"></td>
+      <td th:text="${session.kdtSessionTitle}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>

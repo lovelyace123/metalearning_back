@@ -121,6 +121,26 @@
             </select>
         </div>
 
+
+        <!-- 총 교육일수 -->
+        <div class="form-group">
+            <label for="sessionTotalDay">총 교육일수</label>
+            <input type="number" id="sessionTotalDay" name="kdtSessionTotalDay" class="form-control" required>
+        </div>
+
+        <!-- 하루 교육시간 -->
+        <div class="form-group">
+            <label for="sessionOnedayTime">하루 교육시간</label>
+            <input type="number" id="sessionOnedayTime" name="kdtSessionOnedayTime" class="form-control" required>
+        </div>
+
+        <!-- 총 교육시간 (readonly) -->
+        <div class="form-group">
+            <label for="sessionTotalTime">총 교육시간</label>
+            <input type="number" id="sessionTotalTime" name="kdtSessionTotalTime" class="form-control" required readonly>
+        </div>
+
+
         <!-- 제출 버튼 -->
         <button type="submit" class="btn btn-primary">회차 등록</button>
     </form>
@@ -160,6 +180,31 @@
             }
         });
     });
+
+     document.addEventListener('DOMContentLoaded', () => {
+        const sessionTotalDayInput = document.getElementById('sessionTotalDay');
+        const sessionOnedayTimeInput = document.getElementById('sessionOnedayTime');
+        const sessionTotalTimeInput = document.getElementById('sessionTotalTime');
+
+        // 입력값이 변경될 때마다 총 교육시간 계산
+        function calculateTotalTime() {
+            const totalDays = parseInt(sessionTotalDayInput.value) || 0; // 입력값이 없으면 0으로 처리
+            const oneDayTime = parseInt(sessionOnedayTimeInput.value) || 0; // 입력값이 없으면 0으로 처리
+            const totalTime = totalDays * oneDayTime;
+
+            // 총 교육시간을 입력 필드에 표시
+            sessionTotalTimeInput.value = totalTime;
+        }
+
+        // 총 교육일수나 하루 교육시간이 변경될 때마다 계산
+        sessionTotalDayInput.addEventListener('input', calculateTotalTime);
+        sessionOnedayTimeInput.addEventListener('input', calculateTotalTime);
+    });
+
+
+
+
+
 </script>
 
 </body>

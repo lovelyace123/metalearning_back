@@ -29,4 +29,8 @@ public interface KdtService {
     // 세션이 존재하는지 확인하는 메서드
     boolean hasSessions(Long courseId);
 
+    // 국비과정 아이디로 세션 전체 찾기임
+    List<KDTSessionDTO> getSessionsByCourseId(Long courseId);
+
+
 }

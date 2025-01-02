@@ -2,7 +2,6 @@ package com.metalearning.KDT.KDTservice;
 
 import com.metalearning.KDT.KDTdto.KDTCourseDTO;
 import com.metalearning.KDT.KDTdto.KDTSessionDTO;
-import com.metalearning.KDT.KDTdto.KDTSessionDTO;
 import com.metalearning.KDT.KDTentity.KDTCourseEntity;
 import com.metalearning.KDT.KDTentity.KDTSessionEntity;
 import com.metalearning.KDT.KDTrepository.KDTCourseRepository;
@@ -59,7 +58,6 @@ public class KdtServiceImpl implements KdtService {
             if (exists) {
                 return 2; // 이미 세션 번호가 존재하는 경우
             }
-
             // 세션 엔티티 생성
             KDTSessionEntity kdtSessionEntity = KDTSessionEntity.builder()
                     .kdtCourseEntity(KDTCourseEntity.builder().kdtCourseId(kdtSessionDto.getKdtCourseId()).build()) // 관계 설정
@@ -71,16 +69,20 @@ public class KdtServiceImpl implements KdtService {
                     .kdtSessionCategory(kdtSessionDto.getKdtSessionCategory())
                     .kdtSessionMaxCapacity(kdtSessionDto.getKdtSessionMaxCapacity())
                     .kdtSessionThumbnail(kdtSessionDto.getKdtSessionThumbnail())
+                    .kdtSessionStartTime(kdtSessionDto.getKdtSessionStartTime())
+                    .kdtSessionEndTime(kdtSessionDto.getKdtSessionEndTime())
                     .kdtSessionPostcode(kdtSessionDto.getKdtSessionPostcode())
                     .kdtSessionAddress(kdtSessionDto.getKdtSessionAddress())
                     .kdtSessionAddressDetail(kdtSessionDto.getKdtSessionAddressDetail())
                     .kdtSessionOnline(kdtSessionDto.getKdtSessionOnline())
+                    .kdtSessionTotalDay(kdtSessionDto.getKdtSessionTotalDay())  // 추가된 필드
+                    .kdtSessionOnedayTime(kdtSessionDto.getKdtSessionOnedayTime())  // 추가된 필드
+                    .kdtSessionTotalTime(kdtSessionDto.getKdtSessionTotalTime())  // 추가된 필드
                     .build();
-            //                    .kdtSessionStartTime(kdtSessionDto.getKdtSessionStartTime())
-            //                    .kdtSessionEndTime(kdtSessionDto.getKdtSessionEndTime())
 
-            // 세션 엔티티 저장
+// 세션 엔티티 저장
             kdtSessionRepository.save(kdtSessionEntity);
+
             return 1; // 성공적으로 저장된 경우
         } catch (Exception e) {
             e.printStackTrace();
@@ -204,10 +206,46 @@ public boolean deleteCourse(Long courseId) {
     return true; // 삭제 성공
 }
 
-    // 세션이 존재하는지 확인하는 메서드
+    // 국비과정 프라이머리키로 모든 세션 아이디를 찾아오는 메서드임
     @Override
     public boolean hasSessions(Long courseId) {
         return kdtSessionRepository.existsByKdtCourseEntity_KdtCourseId(courseId); // 세션이 있으면 true 반환
+    }
+
+    @Override
+    public List<KDTSessionDTO> getSessionsByCourseId(Long courseId) {
+        // courseId에 해당하는 세션 데이터를 DB에서 가져옴
+        List<KDTSessionEntity> sessionEntities = kdtSessionRepository.findByKdtCourseEntity_KdtCourseId(courseId);
+
+        // 가져온 세션 엔티티 리스트를 DTO로 변환
+        List<KDTSessionDTO> sessionAll = sessionEntities.stream()
+                .map(entity -> {
+                    KDTSessionDTO dto = new KDTSessionDTO();
+                    dto.setKdtSessionId(entity.getKdtSessionId());
+                    dto.setKdtCourseId(entity.getKdtCourseEntity().getKdtCourseId());
+                    dto.setKdtSessionNum(entity.getKdtSessionNum());
+                    dto.setKdtSessionTitle(entity.getKdtSessionTitle());
+                    dto.setKdtSessionDescript(entity.getKdtSessionDescript());
+                    dto.setKdtSessionStartDate(entity.getKdtSessionStartDate());
+                    dto.setKdtSessionEndDate(entity.getKdtSessionEndDate());
+                    dto.setKdtSessionCategory(entity.getKdtSessionCategory());
+                    dto.setKdtSessionMaxCapacity(entity.getKdtSessionMaxCapacity());
+                    dto.setKdtSessionThumbnail(entity.getKdtSessionThumbnail());
+                    dto.setKdtSessionStartTime(entity.getKdtSessionStartTime());
+                    dto.setKdtSessionEndTime(entity.getKdtSessionEndTime());
+                    dto.setKdtSessionPostcode(entity.getKdtSessionPostcode());
+                    dto.setKdtSessionAddress(entity.getKdtSessionAddress());
+                    dto.setKdtSessionAddressDetail(entity.getKdtSessionAddressDetail());
+                    dto.setKdtSessionOnline(entity.getKdtSessionOnline());
+                    dto.setKdtSessionTotalDay(entity.getKdtSessionTotalDay());
+                    dto.setKdtSessionOnedayTime(entity.getKdtSessionOnedayTime());
+                    dto.setKdtSessionTotalTime(entity.getKdtSessionTotalTime());
+                    return dto;
+                })
+                .collect(Collectors.toList());  // DTO 리스트로 변환 후 반환
+
+        // 변환된 sessionAll 반환
+        return sessionAll;
     }
 
 }

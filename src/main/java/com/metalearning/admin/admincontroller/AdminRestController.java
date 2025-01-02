@@ -1,6 +1,7 @@
 package com.metalearning.admin.admincontroller;
 
 import com.metalearning.KDT.KDTdto.KDTCourseDTO;
+import com.metalearning.KDT.KDTdto.KDTSessionDTO;
 import com.metalearning.KDT.KDTservice.KdtService;
 import com.metalearning.utility.ResponseMessage;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,7 @@ public class AdminRestController {
         return ResponseEntity.ok(response);
     }
 
+    //국비과정 불러오기
     @GetMapping("/list")
     public ResponseEntity<?> getCourseList() {
         try {
@@ -93,6 +95,27 @@ public class AdminRestController {
         }
     }
 
+    @GetMapping("/course/{courseId}")
+    public ResponseEntity<?> getSessionsByCourseId(@PathVariable Long courseId) {
+        try {
+            // 세션 목록을 가져옴
+            List<KDTSessionDTO> sessions = kdtService.getSessionsByCourseId(courseId);
+
+            // 회차 정보가 없으면 실패 메시지와 함께 OK 응답 반환
+            if (sessions.isEmpty()) {
+                ResponseMessage response = new ResponseMessage("failure", "회차 정보가 없습니다.");
+                return ResponseEntity.status(HttpStatus.OK).body(response); // 200 OK 응답
+            }
+
+            // 회차 정보가 있으면 성공 메시지와 함께 회차 리스트 반환
+            return ResponseEntity.status(HttpStatus.OK).body(sessions); // 200 OK 응답
+
+        } catch (Exception e) {
+            // 예외 발생 시 에러 메시지와 함께 OK 응답 반환
+            ResponseMessage response = new ResponseMessage("error", "오류가 발생했습니다: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.OK).body(response); // 200 OK 응답
+        }
+    }
 
 
 

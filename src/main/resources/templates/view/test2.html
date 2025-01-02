@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세션 관리</title>
+</head>
+<body>
+<div class="container mt-4">
+    <!-- TEST 데이터 출력 -->
+    <h2 id="testMessage"></h2> <!-- "TEST입니다" 출력 -->
+
+    <!-- 세션 리스트가 있을 경우 테이블 출력 -->
+    <table class="table table-bordered" id="sessionTable">
+        <thead>
+        <tr>
+            <th>세션 ID</th>
+            <th>코스 ID</th>
+            <th>회차 번호</th>
+            <th>회차 제목</th>
+            <th>상세 보기</th>
+            <th>매니저 등록하기</th>
+            <th>강사 등록하기</th>
+            <th>수정하기</th>
+            <th>삭제하기</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 세션 리스트 반복문 -->
+        <!-- 데이터가 동적으로 추가될 부분입니다. -->
+        </tbody>
+    </table>
+
+    <!-- 세션 데이터가 비어있는 경우 출력 -->
+    <div id="noSessionsMessage">
+        <p>등록된 세션이 없습니다.</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            // URL에서 id 값을 추출
+            const courseId = window.location.pathname.split('/').pop(); // URL에서 마지막 부분이 courseId
+            console.log('courseId 추출:', courseId);  // courseId 값 콘솔에 출력
+
+            // 세션 데이터를 fetch로 요청
+            const response = await fetch(`/api/admin/KDT/course/${courseId}`);
+            const data = await response.json();
+
+            console.log('서버 응답 데이터:', data);  // 응답 받은 데이터를 콘솔에 출력
+
+            // 응답 데이터가 정상일 경우 처리
+            if (data && data.length > 0) {
+                console.log('세션 목록:', data);  // 세션 목록을 콘솔에 출력
+                document.getElementById('noSessionsMessage').style.display = 'none'; // "등록된 세션이 없습니다" 메시지 숨기기
+                const tbody = document.querySelector('#sessionTable tbody');
+                tbody.innerHTML = ''; // 기존 테이블 내용 비우기
+
+                // 세션 데이터를 테이블에 추가
+                data.forEach(session => {
+                    console.log('세션 데이터:', session);  // 각 세션 데이터를 콘솔에 출력
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${session.kdtSessionId}</td>
+                        <td>${session.kdtCourseId}</td>
+                        <td>${session.kdtSessionNum}</td>
+                        <td>${session.kdtSessionTitle}</td>
+
+                        <td><a href="/admin/KDT/session/${session.kdtSessionId}">상세 보기</a></td> <!-- 상세보기 링크 -->
+                        <td><a href="/admin/KDT/${session.kdtSessionId}/staff/manager">매니저 등록하기</a></td> <!-- 매니저 등록 링크 -->
+                        <td><a href="/admin/KDT/${session.kdtSessionId}/staff/instructor">강사 등록하기</a></td> <!-- 강사 등록 링크 -->
+                        <td><a href="/admin/KDT/session/update/${session.kdtSessionId}">수정하기</a></td> <!-- 회차 수정 링크 -->
+                        <td><a href="/admin/KDT/session/delete/${session.kdtSessionId}">삭제하기</a></td> <!-- 삭제 링크 -->
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                // 세션이 없을 경우
+                document.getElementById('noSessionsMessage').style.display = 'block'; // "등록된 세션이 없습니다" 메시지 보이기
+            }
+        } catch (error) {
+            console.error('세션 데이터 로드 중 오류 발생:', error);  // 오류를 콘솔에 출력
+            alert('세션 데이터를 로드하는 데 실패했습니다.');
+        }
+    });
+</script>
+
+</body>
+</html>
