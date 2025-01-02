@@ -19,7 +19,7 @@ public class KDTAttEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "KDT_att_id")
-    private Long KDTAttId;
+    private Long kdtAttId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KDT_part_id", referencedColumnName = "KDT_part_id", nullable = false)
@@ -27,23 +27,23 @@ public class KDTAttEntity {
 
     @CreatedDate
     @Column(name = "KDT_att_date", nullable = false, updatable = false)
-    private LocalDate KDTAttDate;   // 출석부 일자
+    private LocalDate kdtAttDate;   // 출석부 일자
 
     @Column(name = "KDT_att_entry_time")
-    private LocalDateTime KDTAttEntryTime;  //출석부 입실 시간
+    private LocalDateTime kdtAttEntryTime;  //출석부 입실 시간
 
     @Column(name = "KDT_att_exit_time")
-    private LocalDateTime KDTAttExitTime;   //출석부 퇴실 시간
+    private LocalDateTime kdtAttExitTime;   //출석부 퇴실 시간
 
     @Column(name = "KDT_att_leave_start")
-    private LocalDateTime KDTAttLeaveStart; //출석부 외출 시작 시간
+    private LocalDateTime kdtAttLeaveStart; //출석부 외출 시작 시간
 
     @Column(name = "KDT_att_leave_end")
-    private LocalDateTime KDTAttLeaveEnd;   //출석부 외출 종료 시간
+    private LocalDateTime kdtAttLeaveEnd;   //출석부 외출 종료 시간
 
     @Enumerated(EnumType.STRING)
     @Column(name = "KDT_att_status")
-    private KDTAttStatus KDTAttStatus;
+    private KDTAttStatus kdtAttStatus;      //출석부 상태 예시: 입실, 퇴실, 외출 등
 
     //상태를 업데이트 하는 함수 추가
     //1. 입실o 외출x 외출x 퇴실x -> 입실

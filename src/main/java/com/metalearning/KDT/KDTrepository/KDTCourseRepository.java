@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KDTCourseRepository extends JpaRepository <KDTCourseEntity,Long>{
 
-    boolean existsByKDTCourseTitle(String KDTCourseTitle);
+    boolean existsByKdtCourseTitle(String kdtCourseTitle);
 
 }

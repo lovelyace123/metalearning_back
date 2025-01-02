@@ -15,11 +15,11 @@
 <body>
 <div class="app-container">
     <!-- Header -->
-    <div th:replace="fragments/adminheader :: adminheader"></div>
+    <div th:replace="~{fragments/adminheader :: adminheader}"></div>
 
     <div class="content-container">
         <!-- Sidebar -->
-        <div th:replace="fragments/adminsidebar :: adminsidebar"></div>
+        <div th:replace="~{fragments/adminsidebar :: adminsidebar}"></div>
 
         <!-- Main Content -->
         <div class="main-content">
@@ -32,14 +32,14 @@
 
                 <!-- 과정명 입력 필드 -->
                 <div class="form-group">
-                    <label for="KDTCourseTitle">과정명</label>
-                    <input type="text" id="KDTCourseTitle" name="KDTCourseTitle" required class="form-control">
+                    <label for="kdtCourseTitle">과정명</label>
+                    <input type="text" id="kdtCourseTitle" name="kdtCourseTitle" required class="form-control">
                 </div>
 
                 <!-- 수강 상태 (활성화/비활성화) -->
                 <div class="form-group">
-                    <label for="KDTCourseStatus">수강 상태</label>
-                    <select id="KDTCourseStatus" name="KDTCourseStatus" required class="form-select">
+                    <label for="kdtCourseStatus">수강 상태</label>
+                    <select id="kdtCourseStatus" name="kdtCourseStatus" required class="form-select">
                         <option value="true">활성화</option>
                         <option value="false">비활성화</option>
                     </select>
@@ -47,9 +47,9 @@
 
                 <!-- 국비 과정 종류 선택 -->
                 <div class="form-group">
-                    <label for="KDTCourseType">국비 과정 종류</label>
-                    <select id="KDTCourseType" name="KDTCourseType" required class="form-select">
-                        <option value="K-디지털 트레이닝">K-디지털 트레이닝</option>
+                    <label for="kdtCourseType">국비 과정 종류</label>
+                    <select id="kdtCourseType" name="kdtCourseType" required class="form-select">
+                        <option value="k-디지털 트레이닝">K-디지털 트레이닝</option>
                         <option value="국가기간 전략산업 직종훈련">국가기간 전략산업 직종훈련</option>
                         <option value="산업구조 변화대응 특화훈련">산업구조 변화대응 특화훈련</option>
                     </select>

@@ -1,27 +1,28 @@
 package com.metalearning.KDT.KDTentity;
 
-import com.metalearning.user.userentity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Table(name = "KDT_course_outline")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-@Table(name = "KDT_staff")
 @Getter
-public class KDTStaffEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class KDTCourseOutlineEntity { //동영상 넣는 강의목차
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "KDT_staff_id")  // 국비 담당자 명단 id
-    private Long kdtStaffId;
+    @Column(name = "KDT_course_outline_id")
+    private Long kdtCourseOutlineId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KDT_session_id", referencedColumnName = "KDT_session_id", nullable = false)
     private KDTSessionEntity kdtSessionEntity;  // 국비회차id
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private UserEntity userEntity;  // 국비 참가 담당자 user_id()
+    @Column(name = "KDT_course_outline", nullable = false)
+    private String kdtCourseOutline;        // 국비강의 목차 String
+
 }

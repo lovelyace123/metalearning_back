@@ -1,7 +1,7 @@
 package com.metalearning.admin.admincontroller;
 
-import com.metalearning.KDT.KDTdto.KDTCourseDto;
-import com.metalearning.KDT.KDTdto.KDTSessionDto;
+import com.metalearning.KDT.KDTdto.KDTCourseDTO;
+import com.metalearning.KDT.KDTdto.KDTSessionDTO;
 import com.metalearning.KDT.KDTservice.KdtService;
 import com.metalearning.user.userservice.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +32,13 @@ public class AdminController {
 
     //국비과정 등록하기
     @PostMapping("/admin/KDT/course")
-    public String postkdtcourse(KDTCourseDto kdtCourseDto, Model model){
+    public String postkdtcourse(KDTCourseDTO kdtCourseDTO, Model model){
 
 
-        log.info("데이터 오는지 확인해보자===============================-{}",kdtCourseDto);
+        log.info("데이터 오는지 확인해보자===============================-{}",kdtCourseDTO);
 
 
-        int result = kdtService.kdtcoursesave(kdtCourseDto);
+        int result = kdtService.kdtcoursesave(kdtCourseDTO);
 
         switch (result) {
             case 1: // 성공
@@ -63,7 +63,7 @@ public class AdminController {
     @GetMapping("/admin/KDT/course/update/{courseId}")
     public String getkdtcourseupdate(@PathVariable Long courseId, Model model) {
         // Service에서 과정 정보 가져오기
-        KDTCourseDto kdtcourse = kdtService.kdtcourseupdate(courseId);
+        KDTCourseDTO kdtcourse = kdtService.kdtcourseupdate(courseId);
 
         // 모델에 DTO 객체를 담아서 뷰로 전달
         model.addAttribute("kdtcourse", kdtcourse);
@@ -73,7 +73,7 @@ public class AdminController {
 
 
     @PostMapping("/admin/KDT/course/update/{courseId}")
-    public String updateCourse(@PathVariable Long courseId, @ModelAttribute KDTCourseDto kdtcourse, Model model) {
+    public String updateCourse(@PathVariable Long courseId, @ModelAttribute KDTCourseDTO kdtcourse, Model model) {
         // 수정된 정보를 서비스로 전달하여 업데이트 처리
         boolean update = kdtService.updateCourse(courseId, kdtcourse);
 
@@ -92,14 +92,10 @@ public class AdminController {
     }
 
 
-
-
-
-
     //회차등록하기
     @GetMapping("/admin/KDT/session")
     public String getkdtsession(Model model) {
-        List<KDTCourseDto> courseall = kdtService.courseall();
+        List<KDTCourseDTO> courseall = kdtService.courseall();
         model.addAttribute("courseall", courseall);  // 데이터를 모델에 추가하여 뷰로 전달
         return "/admin/KDT/session";  // 해당 뷰로 이동
 
@@ -107,7 +103,7 @@ public class AdminController {
 
     //회차등록하기
     @PostMapping("/admin/KDT/session")
-    public String postkdtsession(KDTSessionDto kdtSessionDto, Model model){
+    public String postkdtsession(KDTSessionDTO kdtSessionDto, Model model){
 
 
         log.info("데이터 오는지 확인해보자===============================-{}",kdtSessionDto);

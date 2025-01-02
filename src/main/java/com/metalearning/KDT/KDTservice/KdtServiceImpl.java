@@ -1,7 +1,8 @@
 package com.metalearning.KDT.KDTservice;
 
-import com.metalearning.KDT.KDTdto.KDTCourseDto;
-import com.metalearning.KDT.KDTdto.KDTSessionDto;
+import com.metalearning.KDT.KDTdto.KDTCourseDTO;
+import com.metalearning.KDT.KDTdto.KDTSessionDTO;
+import com.metalearning.KDT.KDTdto.KDTSessionDTO;
 import com.metalearning.KDT.KDTentity.KDTCourseEntity;
 import com.metalearning.KDT.KDTentity.KDTSessionEntity;
 import com.metalearning.KDT.KDTrepository.KDTCourseRepository;
@@ -27,17 +28,17 @@ public class KdtServiceImpl implements KdtService {
 
     //국비과정 등록하는 메서드임
     @Override
-    public int kdtcoursesave(KDTCourseDto kdtCourseDto) {
+    public int kdtcoursesave(KDTCourseDTO kdtCourseDto) {
         try {
             // 중복 확인 사용하는거임
-            boolean exists = kdtCourseRepository.existsByKDTCourseTitle(kdtCourseDto.getKDTCourseTitle());
+            boolean exists = kdtCourseRepository.existsByKdtCourseTitle(kdtCourseDto.getKdtCourseTitle());
             if (exists) {
                 return 2;
             }
             KDTCourseEntity kdtCourseEntity = KDTCourseEntity.builder()
-                    .KDTCourseTitle(kdtCourseDto.getKDTCourseTitle())
-                    .KDTCourseStatus(kdtCourseDto.getKDTCourseStatus())
-                    .KDTCourseType(kdtCourseDto.getKDTCourseType())
+                    .kdtCourseTitle(kdtCourseDto.getKdtCourseTitle())
+                    .kdtCourseStatus(kdtCourseDto.getKdtCourseStatus())
+                    .kdtCourseType(kdtCourseDto.getKdtCourseType())
                     .build();
             kdtCourseRepository.save(kdtCourseEntity);
             return 1;
@@ -49,55 +50,61 @@ public class KdtServiceImpl implements KdtService {
 
     //회차 등록하는 메서드임
     @Override
-    public int kdtsessionsave(KDTSessionDto kdtSessionDto) {
+    public int kdtsessionsave(KDTSessionDTO kdtSessionDto) {
         try {
-            boolean exists = kdtSessionRepository.existsByKDTSessionNum(kdtSessionDto.getKDTSessionNum());
+            // 코스 ID와 세션 번호를 기준으로 이미 존재하는 세션이 있는지 확인
+            boolean exists = kdtSessionRepository.existsByKdtCourseEntity_KdtCourseIdAndKdtSessionNum(
+                    kdtSessionDto.getKdtCourseId(), kdtSessionDto.getKdtSessionNum());
 
             if (exists) {
-                return 2;
+                return 2; // 이미 세션 번호가 존재하는 경우
             }
-            KDTSessionEntity kdtSessionEntity = KDTSessionEntity.builder()
-                    .kdtCourseEntity(KDTCourseEntity.builder().KDTCourseId(kdtSessionDto.getKDTCourseId()).build()) // 관계 설정
-                    .KDTSessionNum(kdtSessionDto.getKDTSessionNum())
-                    .KDTSessionTitle(kdtSessionDto.getKDTSessionTitle())
-                    .KDTSessionDescript(kdtSessionDto.getKDTSessionDescript())
-                    .KDTSessionStartDate(kdtSessionDto.getKDTSessionStartDate())
-                    .KDTSessionEndDate(kdtSessionDto.getKDTSessionEndDate())
-                    .KDTSessionCategory(kdtSessionDto.getKDTSessionCategory())
-                    .KDTSessionMaxCapacity(kdtSessionDto.getKDTSessionMaxCapacity())
-                    .KDTSessionThumbnail(kdtSessionDto.getKDTSessionThumbnail())
-//                    .KDTSessionStartTime(kdtSessionDto.getKDTSessionStartTime())
-//                    .KDTSessionEndTime(kdtSessionDto.getKDTSessionEndTime())
-                    .KDTSessionPostcode(kdtSessionDto.getKDTSessionPostcode())
-                    .KDTSessionAddress(kdtSessionDto.getKDTSessionAddress())
-                    .KDTSessionAddressDetail(kdtSessionDto.getKDTSessionAddressDetail())
-                    .KDTSessionOnline(kdtSessionDto.getKDTSessionOnline())
-                    .build();
 
+            // 세션 엔티티 생성
+            KDTSessionEntity kdtSessionEntity = KDTSessionEntity.builder()
+                    .kdtCourseEntity(KDTCourseEntity.builder().kdtCourseId(kdtSessionDto.getKdtCourseId()).build()) // 관계 설정
+                    .kdtSessionNum(kdtSessionDto.getKdtSessionNum())
+                    .kdtSessionTitle(kdtSessionDto.getKdtSessionTitle())
+                    .kdtSessionDescript(kdtSessionDto.getKdtSessionDescript())
+                    .kdtSessionStartDate(kdtSessionDto.getKdtSessionStartDate())
+                    .kdtSessionEndDate(kdtSessionDto.getKdtSessionEndDate())
+                    .kdtSessionCategory(kdtSessionDto.getKdtSessionCategory())
+                    .kdtSessionMaxCapacity(kdtSessionDto.getKdtSessionMaxCapacity())
+                    .kdtSessionThumbnail(kdtSessionDto.getKdtSessionThumbnail())
+                    .kdtSessionPostcode(kdtSessionDto.getKdtSessionPostcode())
+                    .kdtSessionAddress(kdtSessionDto.getKdtSessionAddress())
+                    .kdtSessionAddressDetail(kdtSessionDto.getKdtSessionAddressDetail())
+                    .kdtSessionOnline(kdtSessionDto.getKdtSessionOnline())
+                    .build();
+            //                    .kdtSessionStartTime(kdtSessionDto.getKdtSessionStartTime())
+            //                    .kdtSessionEndTime(kdtSessionDto.getKdtSessionEndTime())
+
+            // 세션 엔티티 저장
             kdtSessionRepository.save(kdtSessionEntity);
-            return 1;
+            return 1; // 성공적으로 저장된 경우
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return 0; // 예외 발생 시 실패
         }
     }
 
 
+
     //KDT 교육과정명 전체찾는 메서드임 =  courseall  중복해서 사용하면 댐
     @Override
-    public List<KDTCourseDto> courseall() {
+    public List<KDTCourseDTO> courseall() {
         List<KDTCourseEntity> courses = kdtCourseRepository.findAll();
-        List<KDTCourseDto> courseDtos = courses.stream()
-                .map(course -> new KDTCourseDto(
-                        course.getKDTCourseId(),
-                        course.getKDTCourseTitle(),
-                        course.getKDTCourseStatus(),
-                        course.getKDTCourseType(),
-                        course.getKDTCourseCreatedAt(),
-                        course.getKDTCourseUpdatedAt()
+        List<KDTCourseDTO> courseall = courses.stream()
+                .map(course -> new KDTCourseDTO(
+                        course.getKdtCourseId(),
+                        course.getKdtCourseTitle(),
+                        course.getKdtCourseStatus(),
+                        course.getKdtCourseType(),
+                        course.getKdtCourseCreatedAt(),
+                        course.getKdtCourseUpdatedAt()
                 ))
                 .collect(Collectors.toList());
-        return courseDtos;
+        return courseall;
     }
 
 
@@ -107,19 +114,19 @@ public class KdtServiceImpl implements KdtService {
         try {
             // courseId에 해당하는 마지막 세션을 찾기 (세션 번호가 큰 순서대로)
             Optional<KDTSessionEntity> lastSession = kdtSessionRepository
-                    .findTopByKdtCourseEntity_KDTCourseIdOrderByKDTSessionNumDesc(courseId);
+                    .findTopByKdtCourseEntity_KdtCourseIdOrderByKdtSessionNumDesc(courseId);
 
             return lastSession.map(session -> {
                 Map<String, Object> result = new HashMap<>();
-                result.put("sessionNum", session.getKDTSessionNum());  // 세션 번호
-                result.put("courseTitle", session.getKdtCourseEntity().getKDTCourseTitle());  // 과정명
+                result.put("sessionNum", session.getKdtSessionNum());  // 세션 번호
+                result.put("courseTitle", session.getKdtCourseEntity().getKdtCourseTitle());  // 과정명
                 return result;
             }).orElseGet(() -> {
                 // 세션이 없으면 courseId로 과정명을 찾아서 반환
                 Optional<KDTCourseEntity> course = kdtCourseRepository.findById(courseId);
                 Map<String, Object> result = new HashMap<>();
                 result.put("sessionNum", 0);  // 세션 번호는 0
-                result.put("courseTitle", course.map(KDTCourseEntity::getKDTCourseTitle).orElse("과정명 없음"));  // 과정명
+                result.put("courseTitle", course.map(KDTCourseEntity::getKdtCourseTitle).orElse("과정명 없음"));  // 과정명
                 return result;
             });
         } catch (Exception e) {
@@ -132,35 +139,9 @@ public class KdtServiceImpl implements KdtService {
         }
     }
 
-    // 국비과정 프라이머키로 찾기
-    @Override
-    public KDTCourseDto kdtcourseupdate(Long courseId) {
-        // 1. courseId에 해당하는 과정 조회
-        Optional<KDTCourseEntity> optionalCourse = kdtCourseRepository.findById(courseId);
-
-        // 과정이 존재하지 않으면 예외 처리
-        if (!optionalCourse.isPresent()) {
-            throw new RuntimeException("해당 과정이 존재하지 않습니다.");
-        }
-        // Optional을 사용하여 DTO로 변환 후 변수에 담기
-        KDTCourseDto dto = optionalCourse
-                .map(entity -> new KDTCourseDto(
-                        entity.getKDTCourseId(),
-                        entity.getKDTCourseTitle(),
-                        entity.getKDTCourseStatus(),
-                        entity.getKDTCourseType(),
-                        entity.getKDTCourseCreatedAt(),
-                        entity.getKDTCourseUpdatedAt()
-                ))
-                .orElseThrow(() -> new RuntimeException("해당 과정이 존재하지 않습니다.")); // Optional이 비어 있을 경우 예외 처리
-
-        // 변수를 리턴
-        return dto;
-    }
-
     //국비과정 수정 메서드
     @Override
-    public boolean updateCourse(Long courseId, KDTCourseDto kdtcourseDto) {
+    public boolean updateCourse(Long courseId, KDTCourseDTO kdtcourseDto) {
         Optional<KDTCourseEntity> optionalCourse = kdtCourseRepository.findById(courseId);
         if (optionalCourse.isPresent()) {
             KDTCourseEntity course = optionalCourse.get();
@@ -174,32 +155,59 @@ public class KdtServiceImpl implements KdtService {
 
     }
 
-    //국비과정 삭제하는 메서드   @Transactional
-        @Override
-        @Transactional
-        public boolean deleteCourse(Long courseId) {
-            Optional<KDTCourseEntity> courseOptional = kdtCourseRepository.findById(courseId);
+    // 국비과정 프라이머키로 찾기
+    @Override
+    public KDTCourseDTO kdtcourseupdate(Long courseId) {
+        // 1. courseId에 해당하는 과정 조회
+        Optional<KDTCourseEntity> optionalCourse = kdtCourseRepository.findById(courseId);
 
-            if (courseOptional.isPresent()) {
-                // 연관된 세션들을 가져오기
-                List<KDTSessionEntity> sessions = kdtSessionRepository.findByKdtCourseEntity_KDTCourseId(courseId);
-
-                // 세션에서 과정 참조를 null로 설정
-                for (KDTSessionEntity session : sessions) {
-                    // 세터 없이 필드 직접 수정 (필드가 final이 아니어야 함)
-                    session.kdtCourseEntity = null;  // 필드를 직접 null로 설정
-                    kdtSessionRepository.save(session);  // 업데이트된 세션 저장
-                }
-
-                // 과정을 삭제
-                kdtCourseRepository.deleteById(courseId);
-                return true;
-            } else {
-                return false;
-            }
+        // 과정이 존재하지 않으면 예외 처리
+        if (!optionalCourse.isPresent()) {
+            throw new RuntimeException("해당 과정이 존재하지 않습니다.");
         }
+        // Optional을 사용하여 DTO로 변환 후 변수에 담기
+        KDTCourseDTO dto = optionalCourse
+                .map(entity -> new KDTCourseDTO(
+                        entity.getKdtCourseId(),
+                        entity.getKdtCourseTitle(),
+                        entity.getKdtCourseStatus(),
+                        entity.getKdtCourseType(),
+                        entity.getKdtCourseCreatedAt(),
+                        entity.getKdtCourseUpdatedAt()
+                ))
+                .orElseThrow(() -> new RuntimeException("해당 과정이 존재하지 않습니다.")); // Optional이 비어 있을 경우 예외 처리
 
+        // 변수를 리턴
+        return dto;
+    }
 
+// 국비과정 삭제하는 메서드
+@Override
+public boolean deleteCourse(Long courseId) {
+    Optional<KDTCourseEntity> courseOptional = kdtCourseRepository.findById(courseId);
 
+    if (courseOptional.isEmpty()) {
+        return false; // 과정이 존재하지 않으면 삭제할 수 없음
+    }
+
+    // 과정에 연관된 세션이 있다면 삭제 불가
+    boolean hasSessions = kdtSessionRepository.existsByKdtCourseEntity_KdtCourseId(courseId);
+
+    if (hasSessions) {
+        return false; // 세션이 존재하면 삭제할 수 없음
+    }
+
+    // 세션이 없으면 삭제
+    KDTCourseEntity course = courseOptional.get();
+    kdtCourseRepository.delete(course);
+
+    return true; // 삭제 성공
+}
+
+    // 세션이 존재하는지 확인하는 메서드
+    @Override
+    public boolean hasSessions(Long courseId) {
+        return kdtSessionRepository.existsByKdtCourseEntity_KdtCourseId(courseId); // 세션이 있으면 true 반환
+    }
 
 }

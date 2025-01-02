@@ -15,11 +15,11 @@ public class KDTPartEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "KDT_part_id")
-    private Long KDTPartId;
+    private Long kdtPartId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "KDT_session_id", referencedColumnName = "KDT_session_id", nullable = false)
-    private KDTSessionEntity KDTSessionEntity;  // 국비회차id
+    private KDTSessionEntity kdtSessionEntity;  // 국비회차id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -27,8 +27,8 @@ public class KDTPartEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "KDT_part_status", nullable = false)
-    private KDTPartStatus KDTPartStatus;   // 대기, 수료중, 제적, 수료완료
+    private KDTPartStatus kdtPartStatus;   // 대기, 수료중, 제적, 수료완료
 
     @Column(name = "KDT_part_emp", nullable = false)
-    private Boolean KDTPartEmp;     // 취직 여부 False:구직상태 / True:취직상태
+    private Boolean kdtPartEmp;     // 취직 여부 False:구직상태 / True:취직상태
 }

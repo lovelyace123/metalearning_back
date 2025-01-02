@@ -3,25 +3,25 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
-<header class="header header-expand header-dark bg-dark" th:fragment="adminheader">
-  <div class="leftSection">
-    <a class="brand" href="/admin/dashboard">메타러닝 관리자 대시보드</a>
-  </div>
-  <div class="rightSection">
+  <header class="header header-expand header-dark bg-dark" th:fragment="adminheader">
+    <div class="leftSection">
+      <a class="brand" href="/admin/dashboard">메타러닝 관리자 대시보드</a>
+    </div>
+    <div class="rightSection">
 
-    <div sec:authorize="isAuthenticated()" class="userInfo">
+      <div sec:authorize="isAuthenticated()" class="userInfo">
       <span>
         환영합니다! <span th:text="${#authentication.name}"></span>
         (<span th:each="auth : ${#authentication.authorities}" th:text="${auth.authority}"></span>)
       </span>
+      </div>
+
+      <form action="/logout" method="POST" sec:authorize="isAuthenticated()" class="logoutForm">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit" class="logoutButton">
+          <i class="bi bi-box-arrow-right"></i> 로그아웃
+        </button>
+      </form>
+
     </div>
-
-    <form action="/logout" method="POST" sec:authorize="isAuthenticated()" class="logoutForm">
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-      <button type="submit" class="logoutButton">
-        <i class="bi bi-box-arrow-right"></i> 로그아웃
-      </button>
-    </form>
-
-  </div>
-</header>
+  </header>

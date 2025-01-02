@@ -1,7 +1,6 @@
 package com.metalearning.KDT.KDTentity;
 
-
-import com.metalearning.KDT.KDTdto.KDTCourseDto;
+import com.metalearning.KDT.KDTdto.KDTCourseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,45 +16,41 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-
 public class KDTCourseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "KDT_course_id")
-    private Long KDTCourseId;
+    @Column(name = "KDT_course_id") //국비 과정 id
+    private Long kdtCourseId;
 
-    @Column(name = "KDT_course_title", nullable = false) // 과정명
-    private String KDTCourseTitle;
+    @Column(name = "KDT_course_title", nullable = false) // 국비 과정명
+    private String kdtCourseTitle;
 
-    @Column(name = "KDT_course_status", nullable = false)
-    private Boolean KDTCourseStatus;
+    @Column(name = "KDT_course_status", nullable = false) // 국비과정 상태 활성화 비활성화
+    private Boolean kdtCourseStatus;
 
-    @Column(name = "KDT_course_type", nullable = false)
-    private String KDTCourseType;
+    @Column(name = "KDT_course_type", nullable = false) //국비과정 타입 kdt
+    private String kdtCourseType;
 
     @CreatedDate
     @Column(name = "KDT_course_created_at", updatable = false)
-    private LocalDateTime KDTCourseCreatedAt; // 생성 날짜
+    private LocalDateTime kdtCourseCreatedAt; // 국비과정 생성 날짜
 
     @LastModifiedDate
     @Column(name = "KDT_course_updated_at")
-    private LocalDateTime KDTCourseUpdatedAt; // 마지막 수정 날짜
-
+    private LocalDateTime kdtCourseUpdatedAt; // 국비과정 수정 날짜
 
     // 업데이트 메서드
-    public void update(KDTCourseDto kdtcourseDto) {
-        if (kdtcourseDto.getKDTCourseTitle() != null) {
-            this.KDTCourseTitle = kdtcourseDto.getKDTCourseTitle();
+    public void update(KDTCourseDTO kdtCourseDto) {
+        if (kdtCourseDto.getKdtCourseTitle() != null) {
+            this.kdtCourseTitle = kdtCourseDto.getKdtCourseTitle();
         }
-        if (kdtcourseDto.getKDTCourseStatus() != null) {
-            this.KDTCourseStatus = kdtcourseDto.getKDTCourseStatus();
+        if (kdtCourseDto.getKdtCourseStatus() != null) {
+            this.kdtCourseStatus = kdtCourseDto.getKdtCourseStatus();
         }
-        if (kdtcourseDto.getKDTCourseType() != null) {
-            this.KDTCourseType = kdtcourseDto.getKDTCourseType();
+        if (kdtCourseDto.getKdtCourseType() != null) {
+            this.kdtCourseType = kdtCourseDto.getKdtCourseType();
         }
-        this.KDTCourseUpdatedAt = LocalDateTime.now(); // 항상 현재 시간으로 수정일 갱신
+        this.kdtCourseUpdatedAt = LocalDateTime.now(); // 항상 현재 시간으로 수정일 갱신
     }
-
-
 }
