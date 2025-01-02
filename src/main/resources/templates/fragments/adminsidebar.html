@@ -7,7 +7,7 @@
   <div class="sb-sidenav-menu">
     <div class="sidebarSection">
       <!-- Home -->
-      <a class="link sidebar-link" href="/admin/dashboard">
+      <a class="link sidebar-link" href="/">
         <i class="bi bi-house-door me-2"></i>Home
       </a>
       <!-- 개인정보 -->
@@ -17,75 +17,62 @@
       <!-- 통계관리 -->
       <div class="link dropdown">
         <i class="bi bi-bar-chart me-2"></i>
-        <a class="hlink sidebar-link" href="/admin/statistics"> 통계관리</a>
+        <a class="hlink sidebar-link" href="/view/admin/statistics"> 통계관리</a>
         <div class="subMenu">
-          <a href="/admin/userchart" class="subLink">학생증감율</a>
-          <a href="/admin/teacherchart" class="subLink">강사증감율</a>
-          <a href="/admin/overview" class="subLink">강의증감율</a>
-          <a href="/admin/overview" class="subLink">강의 별점/평점</a>
-          <a href="/admin/overview" class="subLink">조회</a>
+          <a href="/view/admin/userchart" class="subLink">전체 회원 증감율</a>
+          <a href="/view/admin/studentchart" class="subLink">학생 증감율</a>
+          <a href="/view/admin/instrchart" class="subLink">강사증감율</a>
+          <a href="/view/admin/coursechart" class="subLink">강의증감율</a>
+          <a href="/view/admin/paychart" class="subLink">결제 통계</a>
         </div>
       </div>
       <!-- 회원관리 -->
-      <div class="link dropdown">
-        <i class="bi bi-people me-2"></i>
-        <a class="hlink sidebar-link" href="/admin/statistics">회원관리</a>
-        <div class="subMenu">
-          <a href="/admin/userchart" class="subLink">학생증감율</a>
-          <a href="/admin/teacherchart" class="subLink">강사증감율</a>
-          <a href="/admin/overview" class="subLink">강의증감율</a>
-          <a href="/admin/overview" class="subLink">강의 별점/평점</a>
-          <a href="/admin/overview" class="subLink">조회</a>
-        </div>
-      </div>
+      <a class="link sidebar-link" href="/view/admin/users/list">
+        <i class="bi bi-people me-2"></i> 회원관리
+      </a>
       <!-- 국비관리 -->
       <div class="link dropdown">
         <i class="bi bi-book"></i>
-        <a class="hlink sidebar-link" href="/admin/statistics"> 국비관리</a>
+        <a class="hlink sidebar-link" href="/view/admin/KDT/Courselist"> 국비관리</a>
         <div class="subMenu">
-          <a href="/admin/KDT/course" class="subLink">국비과정등록하기</a>
-          <a href="/admin/KDT/session" class="subLink">국비회차등록하기</a>
-          <a href="/admin/overview" class="subLink">강의증감율</a>
-          <a href="/admin/overview" class="subLink">강의 별점/평점</a>
-          <a href="/admin/overview" class="subLink">조회</a>
-        </div>
-      </div>
-      <!-- 강의관리 -->
-      <div class="link dropdown">
-        <i class="bi bi-person-workspace"></i>
-        <a class="hlink sidebar-link" href="/admin/statistics">강의관리</a>
-        <div class="subMenu">
-          <a href="/admin/userchart" class="subLink">학생증감율</a>
-          <a href="/admin/teacherchart" class="subLink">강사증감율</a>
-          <a href="/admin/overview" class="subLink">강의증감율</a>
-          <a href="/admin/overview" class="subLink">강의 별점/평점</a>
-          <a href="/admin/overview" class="subLink">조회</a>
-        </div>
-      </div>
-      <!-- 결제관리 -->
-      <div class="link dropdown">
-        <i class="bi bi-credit-card"></i>
-        <a class="hlink sidebar-link" href="/admin/statistics">결제관리</a>
-        <div class="subMenu">
-          <a href="/admin/userchart" class="subLink">학생증감율</a>
-          <a href="/admin/teacherchart" class="subLink">강사증감율</a>
-          <a href="/admin/overview" class="subLink">강의증감율</a>
-          <a href="/admin/overview" class="subLink">강의 별점/평점</a>
-          <a href="/admin/overview" class="subLink">조회</a>
+          <a href="/view/admin/KDT/Courselist" class="subLink">국비 과정 목록 조회</a>
+          <a href="/admin/KDT/course" class="subLink">국비 과정 등록</a>
+          <a href="/view/admin/KDT/course/{id}" class="subLink">국비 회차 목록 조회</a>
+          <a href="/admin/KDT/session" class="subLink">국비 회차 등록</a>
         </div>
       </div>
       <!-- 게시판관리 -->
       <div class="link dropdown">
         <i class="bi bi-card-list"></i>
-        <a class="hlink sidebar-link" href="/admin/statistics">게시판관리</a>
+        <a class="hlink sidebar-link" href="/admin/board/list/{category}">게시판관리</a>
         <div class="subMenu">
-          <a href="/admin/userchart" class="subLink">학생증감율</a>
-          <a href="/admin/teacherchart" class="subLink">강사증감율</a>
-          <a href="/admin/overview" class="subLink">강의증감율</a>
-          <a href="/admin/overview" class="subLink">강의 별점/평점</a>
-          <a href="/admin/overview" class="subLink">조회</a>
+          <a href="/admin/board/list/{category}" class="subLink">게시판 목록 조회</a>
+          <a href="/admin/board/{category}" class="subLink">게시글 작성</a>
         </div>
       </div>
+      <!-- 강의관리 -->
+      <div class="link dropdown">
+        <i class="bi bi-person-workspace"></i>
+        <a class="hlink sidebar-link" href="/admin/course/list/{status}">강의관리</a>
+        <div class="subMenu">
+          <a href="/admin/course/list/{status}" class="subLink">강의 목록 조회</a>
+          <a href="/admin/course" class="subLink">강의 등록</a>
+          <a href="/admin/course/list/{'wait'}" class="subLink">강의 승인 대기 목록</a>
+        </div>
+      </div>
+      <!-- 리뷰관리 -->
+      <div class="link dropdown">
+        <i class="bi bi-star"></i>
+        <a class="hlink sidebar-link" href="/admin/course/review/list">리뷰관리</a>
+        <div class="subMenu">
+          <a href="/admin/course/review/list" class="subLink">국비 리뷰 목록 조회</a>
+          <a href="/admin/instr/review/list" class="subLink">강사 리뷰 목록 조회</a>
+        </div>
+      </div>
+      <!-- 결제관리 -->
+      <a class="link sidebar-link" href="/admin/pay/list">
+        <i class="bi bi-credit-card"></i> 결제 관리
+      </a>
     </div>
   </div>
 </div>

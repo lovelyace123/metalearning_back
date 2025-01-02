@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팀 소개 - 메타러닝</title>
+    <link rel="stylesheet" href="/static/css/header/header.css">
+    <link rel="stylesheet" href="/static/css/footer/footer.css">
+    <!-- 부트스트랩 및 아이콘 경로 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 40px 0 20px;
+            text-align: center;
+        }
+        .site-section {
+            margin-bottom: 50px;
+            padding: 20px;
+        }
+        .site-section p, .site-section ul {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+        .team-section {
+            text-align: center;
+        }
+        .team-header {
+            margin-bottom: 40px;
+        }
+        .team-card {
+            width: 260px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            text-align: center;
+        }
+        .team-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        .team-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 15px 0 10px;
+        }
+        .team-card p {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        .role {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .dev-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px 0;
+        }
+        .dev-icons .icon {
+            text-align: center;
+        }
+        .dev-icons .icon i {
+            font-size: 3rem;
+            color: #ffa500;
+        }
+        .dev-icons .icon p {
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+<!-- 헤더 -->
+<div th:replace="fragments/header :: header"></div>
+
+<main class="container">
+    <!-- 사이트 소개 -->
+    <section class="site-section">
+        <h2 class="section-title">사이트 소개</h2>
+        <p><strong>사이트명:</strong> 메타러닝 (Meta Learning)</p>
+        <p><strong>목표:</strong>
+            오프라인 국비지원 과정을 효과적으로 관리하고 학생들에게 최적화된 학습 경험을 제공하기 위해 맞춤형 학습 관리 플랫폼을 구축합니다.
+            데이터 기반 접근 방식을 통해 교육 효율성을 높이고, 학생과 강사의 상호작용을 강화하여 학습성과를 극대화합니다.
+        </p>
+        <p><strong>주요 기능:</strong></p>
+        <ul>
+            <li><strong>국비지원 과정 신청 관리:</strong> 과정 신청 접수, 출석 관리, 과제 평가 등 전반적인 학습 관리를 제공합니다.</li>
+            <li><strong>학생 데이터 분석:</strong> 학생들의 학습 성과와 패턴을 분석하여 맞춤형 학습 계획을 제안합니다.</li>
+            <li><strong>마이페이지 통합 관리:</strong> 개인 대시보드를 통해 출석, 과제, 진도 및 학습 성과를 시각적으로 제공합니다.</li>
+            <li><strong>강의 관리:</strong> 강의 등록, 수정, 삭제와 함께 강사-학생 간의 실시간 Q&A 및 공지사항 공유 기능을 지원합니다.</li>
+            <li><strong>데이터 시각화:</strong> 학습 현황과 통계를 그래프로 시각화하여 이해도를 높입니다.</li>
+        </ul>
+        <p><strong>특징:</strong>
+            국비지원 과정을 통합적으로 관리하며, 강사와 학생 간 원활한 커뮤니케이션과 효율적인 학습 관리를 지원합니다.
+            AI를 활용한 데이터 분석으로 개인 맞춤형 학습 계획을 제공합니다.
+        </p>
+    </section>
+
+    <!-- 팀 소개 -->
+    <section>
+        <h2 class="section-title">팀 소개</h2>
+        <div class="team-section">
+            <!-- 팀장 -->
+            <div class="team-header">
+                <div class="team-card">
+                    <img src="/static/images/lwj.jpeg" alt="강경준 사진">
+                    <h3>강경준</h3>
+                    <p class="role">팀장 / 백엔드</p>
+                    <p>프로젝트 총괄, 사용자 인증 설계<br/> 및 데이터 보안 관리.</p>
+                </div>
+            </div>
+            <!-- 팀원 -->
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="team-card">
+                        <img src="/static/images/lwj.jpeg" alt="강경연 사진">
+                        <h3>강경연</h3>
+                        <p class="role">AI / 백엔드</p>
+                        <p>데이터 분석 및 추천 시스템 개발.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="team-card">
+                        <img src="/static/images/lwj.jpeg" alt="박형배 사진">
+                        <h3>박형배</h3>
+                        <p class="role">DB 관리 / 백엔드</p>
+                        <p>DB 설계 및 강의 관리.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="team-card">
+                        <img src="/static/images/lwj.jpeg" alt="박종원 사진">
+                        <h3>박종원</h3>
+                        <p class="role">프론트엔드</p>
+                        <p>UI/UX 설계 및 Git 관리.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="team-card">
+                        <img src="/static/images/lwj.jpeg" alt="이원재 사진">
+                        <h3>이원재</h3>
+                        <p class="role">프론트엔드</p>
+                        <p>AJAX 기반 대시보드 설계.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 개발 환경 -->
+    <section class="dev-section">
+        <h2 class="section-title">개발 환경</h2>
+        <div class="dev-icons">
+            <div class="icon">
+                <i class="bi bi-cup-hot"></i>
+                <p>Java</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-tree"></i>
+                <p>Spring Boot</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-filetype-html"></i>
+                <p>HTML</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-filetype-css"></i>
+                <p>CSS</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-filetype-js"></i>
+                <p>JS</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-globe"></i>
+                <p>React</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-database-add"></i>
+                <p>MySQL</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-github"></i>
+                <p>GitHub</p>
+            </div>
+            <div class="icon">
+                <i class="bi bi-cloud"></i>
+                <p>ERD Cloud</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- 푸터 -->
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

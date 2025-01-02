@@ -1,23 +1,40 @@
-.footer {
-    background-color: #f8f9fa; /* 푸터 배경색 */
-    color: #6c757d; /* 텍스트 기본 색상 */
-    border-top: 1px solid #dee2e6; /* 위쪽 경계선 */
-}
+  .footer {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 
-.footer h5 {
-    font-size: 1.2rem; /* 제목 폰트 크기 */
+  .footer-logo {
+    color: #FFA500;
     font-weight: bold;
-}
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
 
-.footer a {
-    color: #6c757d; /* 링크 색상 */
-}
+  .footer p {
+    margin: 0;
+    color: #cccccc;
+  }
 
-.footer a:hover {
-    color: #003366; /* 링크 호버 색상 */
-    text-decoration: none; /* 밑줄 제거 */
-}
+  .footer a {
+    text-decoration: none;
+    font-size: 1rem;
+  }
 
-.footer .bi {
-    font-size: 1.5rem; /* 아이콘 크기 */
-}
+  .footer a:hover {
+    color: #FFA500;
+  }
+
+  .footer img {
+    background-color: #ffffff; /* 로고 배경 흰색 */
+    padding: 5px; /* 이미지 내부 여백 */
+    border-radius: 5px; /* 모서리 둥글게 */
+  }
+
+  .d-flex.justify-content-center.gap-3.flex-wrap {
+    flex-wrap: wrap; /* 버튼이 많아질 경우 줄 바꿈 */
+  }
+
+  .d-flex.justify-content-center.gap-3.flex-wrap a {
+    min-width: 150px; /* 버튼 최소 너비 지정 */
+    text-align: center; /* 버튼 텍스트 중앙 정렬 */
+  }
