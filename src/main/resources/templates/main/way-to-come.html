@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>팀 소개 - 메타러닝</title>
+  <link rel="stylesheet" href="/static/css/header/header.css">
+  <link rel="stylesheet" href="/static/css/footer/footer.css">
+  <script src="/static/js/header/header.js"></script>
+  <!-- 부트스트랩 및 아이콘 경로 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    #map {
+      width: 100%;
+      height: 400px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .info-box {
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      text-align: left;
+      margin-bottom:20px;
+    }
+
+    .info-box h3 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-box ul {
+      list-style: none;
+      padding: 0;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .info-box ul li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .info-box ul li i {
+      font-size: 1.2rem;
+      color: #007bff;
+    }
+
+    .info-box ul li span {
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* 상단바의 z-index 높이기 */
+    header {
+    z-index: 100000; /* 지도 컨트롤보다 높은 값으로 설정 */
+    }
+  </style>
+</head>
+<body>
+<!-- 헤더 -->
+<div th:replace="fragments/header :: header"></div>
+
+<main class="container">
+  <!-- 오시는 길 섹션 -->
+  <section class="mt-4">
+    <h2 class="text-center mb-4"><i class="bi bi-map"></i> 메타러닝 오시는 길</h2>
+
+    <!-- 지도 -->
+    <div id="map"></div>
+    <script>
+      // DOM이 완전히 로드된 후 지도 초기화
+      document.addEventListener('DOMContentLoaded', function () {
+          var map = L.map('map').setView([37.488248509795206, 126.98284133868948], 15); // Zoom level 적절히 조정
+
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+
+          // 마커 추가 예제
+          var marker = L.marker([37.488248509795206, 126.98284133868948]).addTo(map);
+          marker.bindPopup("<b>서울 서초구 동작대로 132</b><br>안석빌딩").openPopup();
+      });
+    </script>
+
+    <!-- 오시는 길 정보와 연락처 -->
+    <div class="row mt-4">
+      <!-- 오시는 길 정보 -->
+      <div class="col-md-6">
+        <div class="info-box">
+          <h3><i class="bi bi-geo-alt-fill"></i> 서울 서초구 동작대로 132</h3>
+          <ul>
+            <li><i class="bi bi-envelope"></i> <span>우편번호:</span> 06556</li>
+            <li><i class="bi bi-door-open"></i> <span>건물명:</span> 안석빌딩</li>
+            <li><i class="bi bi-train-front"></i> <span>지하철:</span> 총신대입구(이수역) 1번 출구 도보 <span class="highlight">1분</span></li>
+            <li><i class="bi bi-bus-front-fill"></i> <span>버스:</span> 이수역 정류장 하차</li>
+            <li><i class="bi bi-car-front-fill"></i> <span>주차:</span> 빌딩 내 주차 가능</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 메타러닝 연락처 -->
+      <div class="col-md-6">
+        <div class="info-box">
+          <h3><i class="bi bi-phone-fill"></i> 연락처</h3>
+          <ul>
+            <li><i class="bi bi-telephone"></i> <span>전화번호:</span> 02-123-4567</li>
+            <li><i class="bi bi-envelope-fill"></i> <span>이메일:</span> info@metalearning.com</li>
+            <li><i class="bi bi-clock"></i> <span>운영 시간:</span> 평일 9:00 ~ 18:00</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 푸터 -->
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
