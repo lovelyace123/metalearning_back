@@ -11,7 +11,7 @@
     <h2>kdt 세션 등록</h2>
 
     <!-- 세션 등록 폼 -->
-    <form th:action="@{/admin/KDT/session}" method="post">
+    <form th:action="@{/admin/KDT/session}" method="post" enctype="multipart/form-data">
         <!-- CSRF token -->
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
@@ -88,11 +88,13 @@
             <input type="number" id="sessionMaxCapacity" name="kdtSessionMaxCapacity" class="form-control" required>
         </div>
 
+
         <!-- 세션 썸네일 -->
         <div class="form-group">
-            <label for="sessionThumbnail">세션 썸네일</label>
-            <input type="text" id="sessionThumbnail" name="kdtSessionThumbnail" class="form-control">
+            <label for="files">세션 썸네일</label>
+            <input type="file" id="files" name="files" class="form-control" accept="image/*">
         </div>
+
 
         <!-- 세션 우편번호 -->
         <div class="form-group">

@@ -9,12 +9,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -102,32 +105,56 @@ public class AdminController {
 
     }
 
-    //회차등록하기
+    //수정 추가해서 푸시
     @PostMapping("/admin/KDT/session")
-    public String postkdtsession(KDTSessionDTO kdtSessionDto, Model model){
+    public String postKdtSession(KDTSessionDTO kdtSessionDto, @RequestParam("files") MultipartFile file, Model model) throws IOException {
 
+        // 파일 저장 경로 설정
+        String uploadDir = "src/main/resources/static/images/course"; // 업로드 디렉토리
+        Path uploadPath = Paths.get(uploadDir);
 
-        log.info("데이터 오는지 확인해보자===============================-{}",kdtSessionDto);
+        // 디렉토리가 존재하지 않으면 생성
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
 
+        // 업로드된 파일 처리
+        String originalFileName = file.getOriginalFilename(); // 원본 파일 이름
+        String uuidFileName = UUID.randomUUID().toString() + "_" + originalFileName; // UUID를 추가한 파일 이름
+        Path filePath = uploadPath.resolve(uuidFileName); // 파일 저장 경로
+
+        // 파일 저장
+        Files.write(filePath, file.getBytes());
+
+        // UUID 파일명을 kdtSessionThumbnail에 저장
+        kdtSessionDto.setKdtSessionThumbnail(uuidFileName); // UUID 파일명만 설정 (실제 경로는 저장하지 않음)
+
+        // 데이터 확인 (로그)
+        log.info("데이터 오는지 확인해보자===============================-{}", kdtSessionDto);
+
+        // 회차 저장 서비스 호출
         int result = kdtService.kdtsessionsave(kdtSessionDto);
 
+        // 결과에 따라 메시지 처리
         switch (result) {
             case 1: // 성공
                 model.addAttribute("msg", "국비과정 회차 등록이 완료되었습니다!");
                 model.addAttribute("loc", "/");  // 홈으로 리디렉션
                 break;
-            case 2: // 이미 있음
-                model.addAttribute("msg", "이미 존재하는 회차과정입니다!");
+            case 2: // 이미 존재
+                model.addAttribute("msg", "이미 존재하는 회차 과정입니다!");
                 model.addAttribute("loc", "/admin/KDT/session");  // 다시 입력 페이지로
                 break;
             default: // 실패
-                model.addAttribute("msg", "국비과정회차 등록을 실패했습니다!");
+                model.addAttribute("msg", "국비과정 회차 등록을 실패했습니다!");
                 model.addAttribute("loc", "/admin/KDT/session");  // 다시 입력 페이지로
                 break;
         }
 
         return "/utility/message";
     }
+
+
 
     // 관리자 마이페이지 가는 곳
     @GetMapping("/admin/mypage")
@@ -158,6 +185,26 @@ public class AdminController {
 
 
 
+
+    //회차별 강사 등록하기
+    @GetMapping("/admin/KDT/{sessionId}/staff/instr")
+    public String showinstrRegistrationPage(@PathVariable Long sessionId, Model model) {
+
+        // 매니저 정보만 가져옴
+        List<UserSignUpDTO> userinstr = userService.userinstrall();
+
+        // 세션 정보 가져오기
+        KDTSessionDTO sessions = kdtService.getSessionsBySessId(sessionId);
+
+        log.info("모든 사용자 정보 가져오는 거 ========================{}", userinstr);
+        log.info("세션 정보 가져오는 거 ========================{}", sessions);
+
+        // 모델에 사용자 정보와 세션 정보 추가
+        model.addAttribute("userinstr", userinstr);
+        model.addAttribute("sessions", sessions);
+
+        return "/admin/KDT/staffinstr"; // 매니저 등록 페이지의 뷰 이름
+    }
 
 
 }
