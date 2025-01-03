@@ -16,7 +16,19 @@ public class MainController {
         return "/main/KDT-curriculum";
     }
 
+    @GetMapping("/main/about-metalearning")
+    public String aboutMetalearning(){
+        return "/main/about-metalearning";
+    }
 
-//    @GetMapping("/main/KDT-curriculum")
-//    public String
+    @GetMapping("/main/way-to-come")
+    public String wayToCome(){
+        return "/main/way-to-come";
+    }
+
+    @GetMapping("/main/KDT-info")
+    public String kdtInfo(){
+        return "/main/KDT-info";
+    }
+
 }

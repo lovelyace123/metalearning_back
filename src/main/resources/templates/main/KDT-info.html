@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>팀 소개 - 메타러닝</title>
+  <link rel="stylesheet" href="/static/css/header/header.css">
+  <link rel="stylesheet" href="/static/css/footer/footer.css">
+  <link rel="stylesheet" href="/static/css/main/KDT-info.css">
+  <script src="/static/js/header/header.js"></script>
+  <!-- 부트스트랩 및 아이콘 경로 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<!-- 헤더 -->
+<div th:replace="fragments/header :: header"></div>
+
+<main class="container">
+  <!-- 개요 -->
+  <section class="mt-4">
+    <h2 class="text-center mb-4"><i class="bi bi-info-circle"></i> K-디지털 트레이닝 개요</h2>
+    <div class="info-box">
+      <p>AI, 클라우드, 반도체, 로봇 등 첨단산업·디지털 분야 취창업을 희망하는 분들을 위해 다양한 훈련과정을 제공하는 직업훈련사업입니다.</p>
+      <p>‘KT’, ‘삼성’ 등 선도기업, ‘모두의 연구소’, ‘멋쟁이사자처럼’과 같은 혁신훈련기관, ‘성균관대’, ‘서울대’ 등 우수대학이 훈련기관으로 참여하여 기업의 실전 프로젝트 중심의 훈련을 실시합니다.</p>
+      <p>기업현장에서 실제로 주어지는 미션을 프로젝트를 통해 해결하며 신기술 역량을 한 층 향상시켜 보세요.</p>
+      <p>K-디지털 트레이닝은 국민내일배움카드를 발급받아 참여하실 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- 지원내용 -->
+  <section class="mt-4">
+    <h2 class="text-center mb-4"><i class="bi bi-gift-fill"></i> 지원내용</h2>
+    <div class="info-box">
+      <h3>1) 키울 수 있는 직무능력</h3>
+      <p>
+        AI, 빅데이터 인공지능 등의 디지털 분야 또는 반도체, 바이오헬스, 디스플레이와 같은 첨단산업 분야 취·창업을 꿈꾼다면 K-디지털 트레이닝에 참여해보세요.
+      </p>
+      <p>
+        평균 6개월·주5일·일8시간의 집중 훈련과정으로, 기업의 실전 프로젝트가 전체 훈련과정에 30% 이상 편성되어 있습니다.
+      </p>
+      <h3>2) 훈련비(=수강료)</h3>
+      <p>국민내일배움카드 잔액이 부족해도 K-디지털 트레이닝에 참여할 수 있습니다. 훈련비 전액 지원!</p>
+      <h3>3) 훈련장려금 및 특별훈련수당</h3>
+      <p>총 140시간 이상의 훈련을 받으면 월 최대 11.6만원의 훈련장려금과 최대 20만원의 특별훈련수당을 받을 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- 지원자격 -->
+  <section class="mt-4">
+    <h2 class="text-center mb-4"><i class="bi bi-check-circle-fill"></i> 지원자격</h2>
+    <div class="info-box">
+      <p>국민내일배움카드를 발급받은 사람은 누구든지 수강할 수 있습니다.</p>
+      <p>‘단기 과정’의 경우, 카드 잔액이 0원이어도 유효한 카드만 있다면 지원 가능합니다.</p>
+    </div>
+  </section>
+
+  <!-- 지원 절차 -->
+  <section class="mt-4">
+    <h2 class="text-center mb-4"><i class="bi bi-clipboard-check-fill"></i> 지원 절차</h2>
+    <div class="info-box">
+      <ol>
+        <li><strong>구직 신청:</strong> 고용24에서 구직 신청을 완료하세요. <a href="https://www.work.go.kr" target="_blank">[바로가기]</a></li>
+        <li><strong>국민내일배움카드 발급 신청:</strong> 카드를 발급받고 실물카드를 수령하세요.</li>
+        <li><strong>수강 신청:</strong> 고용24에서 훈련과정을 검색하고 신청하세요. <a href="https://www.hrd.go.kr" target="_blank">[바로가기]</a></li>
+        <li><strong>수강:</strong> 성실히 훈련에 참여하세요. 출석률이 저조하면 지원이 중단될 수 있습니다.</li>
+        <li><strong>훈련장려금 지급:</strong> 출석률과 훈련시간에 따라 계좌로 자동 입금됩니다.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 내일배움카드 발급하기 버튼 -->
+  <div class="text-center mt-3">
+    <a href="/main/KDT-curriculum" target="_blank" class="btn btn-primary" style="background-color:green;">국비지원과정 신청하기</a>
+    <a href="https://www.hrd.go.kr" target="_blank" class="btn btn-primary">국민내일배움카드 발급하기</a>
+  </div>
+
+  <!-- 출처 -->
+  <div class="text-center mt-3">
+    <p class="text-muted small">
+      출처: <a href="https://m.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systId=SI00000423&systClId=SC00000197#CI00001989" target="_blank" class="text-decoration-none">
+      고용노동부 K-디지털 트레이닝</a>
+    </p>
+  </div>
+  </section>
+</main>
+
+<!-- 푸터 -->
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
