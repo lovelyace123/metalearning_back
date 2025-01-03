@@ -26,4 +26,9 @@ public class MainController {
         return "/main/way-to-come";
     }
 
+    @GetMapping("/main/KDT-info")
+    public String kdtInfo(){
+        return "/main/KDT-info";
+    }
+
 }
