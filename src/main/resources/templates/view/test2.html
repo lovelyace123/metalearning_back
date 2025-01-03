@@ -19,6 +19,7 @@
             <th>회차 번호</th>
             <th>회차 제목</th>
             <th>상세 보기</th>
+            <th>수강생 등록하기</th>
             <th>매니저 등록하기</th>
             <th>강사 등록하기</th>
             <th>수정하기</th>
@@ -69,8 +70,11 @@
                         <td>${session.kdtSessionTitle}</td>
 
                         <td><a href="/admin/KDT/session/${session.kdtSessionId}">상세 보기</a></td> <!-- 상세보기 링크 -->
+
+
+                                <td><a href="/admin/KDT/${session.kdtSessionId}/part">수강생 등록하기</a></td> <!-- 매니저 등록 링크 -->
                         <td><a href="/admin/KDT/${session.kdtSessionId}/staff/manager">매니저 등록하기</a></td> <!-- 매니저 등록 링크 -->
-                        <td><a href="/admin/KDT/${session.kdtSessionId}/staff/instructor">강사 등록하기</a></td> <!-- 강사 등록 링크 -->
+                        <td><a href="/admin/KDT/${session.kdtSessionId}/staff/instr">강사 등록하기</a></td> <!-- 강사 등록 링크 -->
                         <td><a href="/admin/KDT/session/update/${session.kdtSessionId}">수정하기</a></td> <!-- 회차 수정 링크 -->
                         <td><a href="/admin/KDT/session/delete/${session.kdtSessionId}">삭제하기</a></td> <!-- 삭제 링크 -->
                     `;

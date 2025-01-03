@@ -3,6 +3,7 @@ package com.metalearning.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -54,6 +55,8 @@ public class WebSecurityConfig {
                         .requestMatchers("/users/**", "manager/**", "/api/manager/**").hasAnyRole("ADMIN", "MANAGER") // ADMIN 또는 MANAGER 역할만 허용
                         .requestMatchers("/INSTRUCTOR/**").hasRole("INSTRUCTOR") // INSTRUCTOR 역할만 허용
                         .requestMatchers("/student/**").hasRole("STUDENT") // STUDENT 역할만 허용
+                        .requestMatchers(HttpMethod.DELETE, "/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/admin/KDT/session/**").hasRole("ADMIN")
                         .requestMatchers("/KDT/**", "/course/**").hasAnyRole("ADMIN", "INSTRUCTOR", "MANAGER") // KDT와 course 경로는 ADMIN, INSTRUCTOR, MANAGER 역할만 허용
                         .anyRequest().authenticated() // 나머지 요청은 인증된 사용자만 접근 가능
                 )

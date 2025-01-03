@@ -45,7 +45,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_STUDENT"));
 
         if (isAdmin) { //리다이렉트임
-            response.sendRedirect("/admin");  // 관리자 대시보드로 리디렉션
+            response.sendRedirect("http://localhost:5173/view/admin/dashboard");  // 관리자 대시보드로 리디렉션
         } else if (isManager) {
             response.sendRedirect("/manager");  // 매니저 대시보드로 리디렉션
         } else if (isInstructor) {

@@ -6,7 +6,9 @@ import com.metalearning.user.userservice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +22,13 @@ public class test {
 
     private final UserRepository userRepository;
     private final UserService userService;
+
+
+    @GetMapping("/csrf")
+    public CsrfToken csrf(CsrfToken token) {
+        return token;
+    }
+
 
     @DeleteMapping("/api/admin/user/delete/{userId}")
     public ResponseEntity<Map<String, Object>> deleteUser(@PathVariable Long userId) {

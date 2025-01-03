@@ -2,6 +2,7 @@ package com.metalearning.admin.admincontroller;
 
 import com.metalearning.KDT.KDTdto.KDTCourseDTO;
 import com.metalearning.KDT.KDTdto.KDTSessionDTO;
+import com.metalearning.KDT.KDTdto.KDTStaffDTO;
 import com.metalearning.KDT.KDTservice.KdtService;
 import com.metalearning.user.userdto.UserSignUpDTO;
 import com.metalearning.user.userservice.UserService;
@@ -167,11 +168,15 @@ public class AdminController {
     @GetMapping("/admin/KDT/{sessionId}/staff/manager")
     public String showManagerRegistrationPage(@PathVariable Long sessionId, Model model) {
 
-        // 매니저 정보만 가져옴
-        List<UserSignUpDTO> usermanager = userService.usermanagerall();
+        //등록이 안댄 매니저 정보만 가져옴
+        List<UserSignUpDTO> usermanager = userService.usermanagerall(sessionId);
 
         // 세션 정보 가져오기
         KDTSessionDTO sessions = kdtService.getSessionsBySessId(sessionId);
+
+        //이미 등록된 강사 명단 가
+        List<UserSignUpDTO> registeredmanagers = userService.userRegisteredManager(sessionId);
+
 
         log.info("모든 사용자 정보 가져오는 거 ========================{}", usermanager);
         log.info("세션 정보 가져오는 거 ========================{}", sessions);
@@ -179,9 +184,37 @@ public class AdminController {
         // 모델에 사용자 정보와 세션 정보 추가
         model.addAttribute("usermanager", usermanager);
         model.addAttribute("sessions", sessions);
+        model.addAttribute("registeredmanagers", registeredmanagers);
+
 
         return "/admin/KDT/staffmanger"; // 매니저 등록 페이지의 뷰 이름
     }
+
+
+    @PostMapping("/admin/KDT/{sessionId}/staff/manager")
+    public String registerManager(@PathVariable Long sessionId,
+                                      @ModelAttribute KDTStaffDTO kdtStaffDTO) {
+
+        // 강사 등록 처리
+        int result = userService.instrsave(kdtStaffDTO);
+
+        // 결과에 따라 다르게 처리
+        switch (result) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 0:
+                break;
+            default:
+        }
+
+        // 강사 목록 페이지로 리다이렉트
+        return "redirect:/admin/KDT/{sessionId}/staff";
+    }
+
+
+
 
 
 
@@ -190,11 +223,14 @@ public class AdminController {
     @GetMapping("/admin/KDT/{sessionId}/staff/instr")
     public String showinstrRegistrationPage(@PathVariable Long sessionId, Model model) {
 
-        // 매니저 정보만 가져옴
-        List<UserSignUpDTO> userinstr = userService.userinstrall();
+        // 등록이 안댄 강사 정보만 가져옴
+        List<UserSignUpDTO> userinstr = userService.userinstrall(sessionId);
 
         // 세션 정보 가져오기
         KDTSessionDTO sessions = kdtService.getSessionsBySessId(sessionId);
+
+        //이미 등록된 강사 명단 가
+        List<UserSignUpDTO> registeredInstructors = userService.userRegisteredInstructors(sessionId);
 
         log.info("모든 사용자 정보 가져오는 거 ========================{}", userinstr);
         log.info("세션 정보 가져오는 거 ========================{}", sessions);
@@ -202,9 +238,48 @@ public class AdminController {
         // 모델에 사용자 정보와 세션 정보 추가
         model.addAttribute("userinstr", userinstr);
         model.addAttribute("sessions", sessions);
+        model.addAttribute("registeredInstructors", registeredInstructors);
+
 
         return "/admin/KDT/staffinstr"; // 매니저 등록 페이지의 뷰 이름
     }
+
+    // 강사 등록 처리 메서드
+    @PostMapping("/admin/KDT/{sessionId}/staff/instr")
+    public String registerInstructors(@PathVariable Long sessionId,
+                                      @ModelAttribute KDTStaffDTO kdtStaffDTO) {
+
+        // 강사 등록 처리
+        int result = userService.instrsave(kdtStaffDTO);
+
+        // 결과에 따라 다르게 처리
+        switch (result) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 0:
+                break;
+            default:
+        }
+
+        // 강사 목록 페이지로 리다이렉트
+        return "redirect:/admin/KDT/{sessionId}/staff";
+    }
+
+
+
+    //회차별 수강생 등록하기
+    @GetMapping("/admin/KDT/{sessionId}/part")
+    public String showin (@PathVariable Long sessionId, Model model) {
+
+        return "/admin/KDT/part"; // 매니저 등록 페이지의 뷰 이름
+    }
+
+
+
+
+
 
 
 }

@@ -2,6 +2,7 @@ package com.metalearning.admin.admincontroller;
 
 import com.metalearning.KDT.KDTdto.KDTCourseDTO;
 import com.metalearning.KDT.KDTdto.KDTSessionDTO;
+import com.metalearning.KDT.KDTdto.KDTStaffDTO;
 import com.metalearning.KDT.KDTservice.KdtService;
 import com.metalearning.utility.ResponseMessage;
 import lombok.RequiredArgsConstructor;
@@ -116,6 +117,33 @@ public class AdminRestController {
             return ResponseEntity.status(HttpStatus.OK).body(response); // 200 OK 응답
         }
     }
+
+    // 강사 삭제 처리
+    @DeleteMapping("/session/{kdtSessionId}/staff/delete")
+    public ResponseEntity<?> deleteInstructor(@PathVariable Long kdtSessionId,
+                                              @RequestBody KDTStaffDTO kdtStaffDTO) {
+
+        // 사용자 ID와 세션 ID로 강사 삭제
+        try {
+            boolean instructorDeleted = kdtService.deleteInstructor(kdtSessionId, kdtStaffDTO.getUserId());
+
+            if (instructorDeleted) {
+                // 성공적인 삭제 메시지
+                ResponseMessage response = new ResponseMessage("success", "강사가 삭제되었습니다.");
+                return ResponseEntity.ok().body(response);
+            } else {
+                // 강사를 찾을 수 없는 경우
+                ResponseMessage response = new ResponseMessage("fail", "해당 강사를 찾을 수 없습니다.");
+                return ResponseEntity.status(404).body(response);
+            }
+        } catch (Exception e) {
+            // 예외 처리
+            ResponseMessage response = new ResponseMessage("error", "삭제 중 오류가 발생했습니다.");
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+
+
 
 
 

@@ -35,6 +35,8 @@ public interface KdtService {
     //세션 아이디로 세션전체 가져오기
     KDTSessionDTO getSessionsBySessId(Long sessionId);
 
+    //세션아이디로 강사 명단 삭제하는거임
+    boolean deleteInstructor(Long kdtSessionId, Long userId);
 
 
 }

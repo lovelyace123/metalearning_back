@@ -4,8 +4,10 @@ import com.metalearning.KDT.KDTdto.KDTCourseDTO;
 import com.metalearning.KDT.KDTdto.KDTSessionDTO;
 import com.metalearning.KDT.KDTentity.KDTCourseEntity;
 import com.metalearning.KDT.KDTentity.KDTSessionEntity;
+import com.metalearning.KDT.KDTentity.KDTStaffEntity;
 import com.metalearning.KDT.KDTrepository.KDTCourseRepository;
 import com.metalearning.KDT.KDTrepository.KDTSessionRepository;
+import com.metalearning.KDT.KDTrepository.KDTStaffRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class KdtServiceImpl implements KdtService {
 
     private final KDTCourseRepository kdtCourseRepository;
     private final KDTSessionRepository kdtSessionRepository;
+    private final KDTStaffRepository kdtStaffRepository;
 
 
     //국비과정 등록하는 메서드임
@@ -288,6 +291,20 @@ public boolean deleteCourse(Long courseId) {
         return dto;
     }
 
+    @Override
+    public boolean deleteInstructor(Long kdtSessionId, Long userId) {
+        // 세션 ID와 사용자 ID로 강사를 찾기
+        KDTStaffEntity kdtStaffEntity = kdtStaffRepository.findByUserEntityUserIdAndKdtSessionEntityKdtSessionId(userId, kdtSessionId)
+                .orElse(null); // 강사를 찾을 수 없으면 null 반환
 
+        if (kdtStaffEntity != null) {
+            // 강사 삭제
+            kdtStaffRepository.delete(kdtStaffEntity);
+            return true;
+        } else {
+            // 강사를 찾을 수 없으면 false 반환
+            return false;
+        }
+    }
 
 }
